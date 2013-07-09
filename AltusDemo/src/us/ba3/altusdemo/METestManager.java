@@ -1,0 +1,110 @@
+package us.ba3.altusdemo;
+import us.ba3.altusdemo.internetmaptests.*;
+
+import java.io.File;
+import java.util.ArrayList;
+import us.ba3.me.*;
+import android.content.Context;
+import android.util.Log;
+
+class Locations {
+	public static final CoordinateBounds USBounds = new CoordinateBounds(
+			new Location(37.246798, -126.554263), 
+			new Location(34.648367, -72.814862));
+
+	public static final CoordinateBounds CharlotteBounds = new CoordinateBounds(
+			new Location(34.804783, -81.765747), 
+			new Location(35.762115, -80.175476));
+
+	public static final CoordinateBounds AcadiaBounds = new CoordinateBounds(
+			new Location(44.2206, -68.503876), 
+			new Location(44.45633, -68.14682));
+}
+
+public class METestManager {
+	private METest previousSelectedTest;
+	private ArrayList<METest> testList;
+	private MapView mapView;
+	private Context context;
+
+	public METestManager(MapView mapView, Context context) {
+		this.mapView = mapView;
+		this.context = context;
+		testList = new ArrayList<METest>();
+		testList.add(new MapBoxSatelliteTest());
+		testList.add(new MapQuestAerialTest());
+		testList.add(new MapBoxLandcoverTest());
+		testList.add(new MapQuestTest());
+		//testList.add(new IOMHaitiTest());
+		
+		testList.add(new VectorWorldMapTest("World Vector", getMapPath("NewVector","WorldVector"), Locations.USBounds, this));
+		testList.add(new VectorWorldMapTest("Houston Vector - Style 2", getMapPath("NewVector","Houston_Apple"), Locations.USBounds, this));
+		testList.add(new RasterMapTest("Sectional", getMapPath("Sectional","Charlotte_North"), Locations.CharlotteBounds));
+		testList.add(new RasterMapTest("Park Map", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
+		testList.add(new RasterMapTest("Terrain", getMapPath("BaseMap","Earth"), Locations.USBounds));
+		testList.add(new VectorShapeTest("Shapes", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
+		testList.add(new DynamicMarkerTest("Markers", getMapPath("BaseMap", "Earth"), Locations.USBounds));
+		testList.add(new UnitTest("Unit Tests", getMapPath("BaseMap", "Earth"), Locations.USBounds));		
+	}
+
+	String getMapPath(String category, String mapName) {
+		File mapFolder = new File(context.getExternalFilesDir(null), category);
+		String mapPath = mapFolder.getAbsolutePath() + "/" + mapName;
+		Log.w("mapPath", mapPath);
+		return mapPath;
+	}
+
+	METest findTest(String testName) {
+		METest meTest = null;
+		for (METest test : testList) {
+			if (test.name == testName) {
+				meTest = test;
+				break;
+			}
+		}
+		return meTest;
+	}
+
+	public void stopCurrentTest() {
+		if (previousSelectedTest != null) {
+			previousSelectedTest.stop();
+		}
+	}
+	
+	public void restartCurrentTest() {
+		if (previousSelectedTest != null) {
+			previousSelectedTest.stop();
+			previousSelectedTest.start(mapView, context);
+		}
+	}
+	
+	public void startTest(String testName) {
+		
+		// find selected test
+		METest selectedTest = findTest(testName);
+		
+		if(testName=="World Labels") {
+			selectedTest.start(mapView, context);
+			return;
+		}
+
+		// stop previous test
+		if (previousSelectedTest != null)
+			previousSelectedTest.stop();
+
+		// run test
+		if (selectedTest != null)
+			selectedTest.start(mapView, context);
+
+		previousSelectedTest = selectedTest;
+	}
+
+	String[] getTestNames()
+	{
+		String names[] = new String[testList.size() + 1];
+		names[0] = "None";
+		for (int i = 0; i < testList.size(); ++i)
+			names[i+1] = testList.get(i).getName();
+		return names;
+	}
+}

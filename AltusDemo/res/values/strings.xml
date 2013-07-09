@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BA3 Altus Demo</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_settings">Settings</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="downloads">Downloads</string>
+    <string name="downloads_dialog_message">Download and install offline maps? If you are on a high-speed internet connection this will only take a few minutes.</string>
+    <string name="downloads_dialog_title">Download Maps</string>
+    <string name="downloads_dialog_negative">Cancel</string>
+    <string name="downloads_dialog_positive">Download Maps</string>
+    <string name="downloads_success">Offline maps were successfully downloaded.</string>
+    <string name="downloads_fail">Some maps could not be downloaded or extracted. Try again?</string>
+    <string name="mapserver_url">http://mapserver.ba3.us/Drop24Maps/</string>
+</resources>
