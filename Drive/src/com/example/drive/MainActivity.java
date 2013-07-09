@@ -83,6 +83,8 @@ public class MainActivity extends Activity implements ValueAnimator.AnimatorUpda
 	}
 
 	public void onAnimationUpdate (ValueAnimator animation) {
+		
+		//Get the new index for the route
 		int index = (Integer)animation.getAnimatedValue();
 
 		//Get the map view
