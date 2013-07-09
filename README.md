@@ -1,4 +1,4 @@
-<a href="http://www.ba3.us/"><img src="./landing-github.jpg"></a>
+<a href="http://www.ba3.us/"><img src="./landing-github-android.jpg"></a>
 
 The BA3 Altus Mapping Engine(TM) is a high-performance library designed for Android developers who are creating
 both simple and demanding mapping apps for Android 4.0 or higher.
