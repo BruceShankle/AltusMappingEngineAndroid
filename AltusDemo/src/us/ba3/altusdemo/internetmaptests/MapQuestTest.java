@@ -1,6 +1,5 @@
 package us.ba3.altusdemo.internetmaptests;
 import us.ba3.altusdemo.METest;
-import us.ba3.me.virtualmaps.*;
 
 public class MapQuestTest extends METest {
 	

@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 		lineStyle.strokeWidth = 9;
 		
 		//Get the route points
-		PointF[] routePoints = createRoutePoints();
+		Location[] routePoints = createRoutePoints();
 		
 		//Add the line to the vector layer
 		mapView.addLineToVectorMap("route", routePoints, lineStyle);
@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 	}
 
 	//Helper function to add markers to route end points
-	public void addMarkers(MapView mapView, PointF[] routePoints){
+	public void addMarkers(MapView mapView, Location[] routePoints){
 		//Add dynamic marker map layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
 		mapInfo.name = "Markers";
@@ -70,18 +70,16 @@ public class MainActivity extends Activity {
 		//Add a markers
 		DynamicMarker startPoint = new DynamicMarker();
 		startPoint.name = "startPoint";
-		startPoint.setImage(loadBitmap("bluedot.png"));
+		startPoint.setImage(loadBitmap("bluedot.png"), false);
 		startPoint.anchorPoint = new PointF(16,16);
-		startPoint.location.longitude = routePoints[0].x;
-		startPoint.location.latitude = routePoints[0].y;
+		startPoint.location = routePoints[0];
 		mapView.addDynamicMarkerToMap("Markers", startPoint);
 
 		DynamicMarker endPoint = new DynamicMarker();
 		endPoint.name = "endPoint";
-		endPoint.setImage(loadBitmap("greendot.png"));
+		endPoint.setImage(loadBitmap("greendot.png"), false);
 		endPoint.anchorPoint = new PointF(16,16);
-		endPoint.location.longitude = routePoints[routePoints.length-1].x;
-		endPoint.location.latitude = routePoints[routePoints.length-1].y;
+		endPoint.location = routePoints[routePoints.length-1];
 		mapView.addDynamicMarkerToMap("Markers", endPoint);
 	}
 
@@ -99,21 +97,21 @@ public class MainActivity extends Activity {
 	}
 
 	//Helper function to create an array of points to represent a route.
-	public PointF[] createRoutePoints(){
-		ArrayList<PointF> points = new ArrayList<PointF>();
-		points.add(new PointF(-78.64227338056882f,35.77222179527386f));
-		points.add(new PointF(-78.64211160843469f,35.77300435847386f));
-		points.add(new PointF(-78.64204765649093f,35.77431930112859f));
-		points.add(new PointF(-78.64196220184964f,35.77567608136691f));
-		points.add(new PointF(-78.64187508617212f,35.77700395100487f));
-		points.add(new PointF(-78.64183947388348f,35.77832583463119f));
-		points.add(new PointF(-78.64020036607604f,35.77827906552807f));
-		points.add(new PointF(-78.63823940725123f,35.77818133831267f));
-		points.add(new PointF(-78.63659407693116f,35.7781182250745f));
-		points.add(new PointF(-78.63668612449102f,35.77684002315468f));
-		points.add(new PointF(-78.63672620342922f,35.77552738790911f));
-		PointF[] pointArray = points.toArray(new PointF[points.size()]);
-		return pointArray;
+	public Location[] createRoutePoints(){
+		ArrayList<Location> locations = new ArrayList<Location>();
+		locations.add(new Location(35.77222179527386,-78.64227338056882));
+		locations.add(new Location(35.77300435847386,-78.64211160843469));
+		locations.add(new Location(35.77431930112859,-78.64204765649093));
+		locations.add(new Location(35.77567608136691,-78.64196220184964));
+		locations.add(new Location(35.77700395100487,-78.64187508617212));
+		locations.add(new Location(35.77832583463119,-78.64183947388348));
+		locations.add(new Location(35.77827906552807,-78.64020036607604));
+		locations.add(new Location(35.77818133831267,-78.63823940725123));
+		locations.add(new Location(35.7781182250745,-78.63659407693116));
+		locations.add(new Location(35.77684002315468,-78.63668612449102));
+		locations.add(new Location(35.77552738790911,-78.63672620342922));
+		Location[] locationArray = locations.toArray(new Location[locations.size()]);
+		return locationArray;
 	}
 
 }

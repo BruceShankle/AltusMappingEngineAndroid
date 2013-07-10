@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.content.res.AssetManager;
 import android.graphics.*;
 import java.io.*;
-import java.util.*;
 public class MainActivity extends Activity {
 
 	@Override
@@ -30,7 +29,7 @@ public class MainActivity extends Activity {
 		//Add a marker
 		DynamicMarker marker = new DynamicMarker();
 		marker.name = "marker1";
-		marker.setImage(loadBitmap("bluedot.png"));
+		marker.setImage(loadBitmap("bluedot.png"), false);
 		marker.anchorPoint = new PointF(16,16);
 		marker.location.longitude = -78.6389;
 		marker.location.latitude = 35.7719;

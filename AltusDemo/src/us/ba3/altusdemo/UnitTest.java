@@ -4,9 +4,7 @@ import us.ba3.me.markers.DynamicMarker;
 import us.ba3.me.markers.DynamicMarkerMapInfo;
 import us.ba3.me.styles.LabelStyle;
 import us.ba3.me.util.FontUtil;
-import android.graphics.PointF;
 import android.os.Handler;
-import android.util.Log;
 
 public class UnitTest extends METest {
 
@@ -41,7 +39,7 @@ public class UnitTest extends METest {
 		DynamicMarker marker = new DynamicMarker();
 		marker.name = name;
 		marker.location = location;
-		marker.setImage(FontUtil.createLabel(marker.name, new LabelStyle()));
+		marker.setImage(FontUtil.createLabel(marker.name, new LabelStyle()), false);
 		return marker;
 	}
 	
@@ -68,26 +66,32 @@ public class UnitTest extends METest {
 		if (angle >= 360)
 			angle = 0;
 		
-		mapView.showDynamicMarker("marker", "1");
-		mapView.addDynamicMarkerToMap("marker", CreateMarker("2", new Location(40, -103)));
-		mapView.setDynamicMarkerImage("marker", "3", FontUtil.createLabel("3a", new LabelStyle()));
-		mapView.setDynamicMarkerAnchorPoint("marker", "4", new PointF(0,15));
-		mapView.setDynamicMarkerRotation("marker", "5", angle, 2.0);
-		mapView.setDynamicMarkerRotation("marker", "6", angle, 2.0);
-		mapView.setDynamicMarkerAnchorPoint("marker", "6", new PointF(0,20));
-		mapView.setDynamicMarkerOffset("marker", "7", new PointF(0,15));
-		mapView.setDynamicMarkerAnchorPoint("marker", "7", new PointF(0,0));
-		mapView.setDynamicMarkerRotation("marker", "8", angle, 2.0);
-		mapView.setDynamicMarkerOffset("marker", "8", new PointF(0,50));
+//		mapView.showDynamicMarker("marker", "1");
+//		mapView.addDynamicMarkerToMap("marker", CreateMarker("2", new Location(40, -103)));
+//		mapView.setDynamicMarkerImage("marker", "3", FontUtil.createLabel("3a", new LabelStyle()));
+//		mapView.setDynamicMarkerAnchorPoint("marker", "4", new PointF(0,15));
+//		mapView.setDynamicMarkerRotation("marker", "5", angle, 2.0);
+//		mapView.setDynamicMarkerRotation("marker", "6", angle, 2.0);
+//		mapView.setDynamicMarkerAnchorPoint("marker", "6", new PointF(0,20));
+//		mapView.setDynamicMarkerOffset("marker", "7", new PointF(0,15));
+//		mapView.setDynamicMarkerAnchorPoint("marker", "7", new PointF(0,0));
+//		mapView.setDynamicMarkerRotation("marker", "8", angle, 2.0);
+//		mapView.setDynamicMarkerOffset("marker", "8", new PointF(0,50));
+		
+//		mapView.setMaxTileRenderSize(512);
+		
+		//mapView.setTileLevelBias(1.0f);
 	}
 	
 	void DisableMarkers() {
-		mapView.hideDynamicMarker("marker", "1");
-		mapView.removeDynamicMarkerFromMap("marker", "2");
-		mapView.setDynamicMarkerImage("marker", "3", FontUtil.createLabel("3b", new LabelStyle()));
-		mapView.setDynamicMarkerAnchorPoint("marker", "4", new PointF(0,-15));
-		mapView.setDynamicMarkerAnchorPoint("marker", "6", new PointF(0,-20));
-		mapView.setDynamicMarkerAnchorPoint("marker", "7", new PointF(0,10));
+//		mapView.hideDynamicMarker("marker", "1");
+//		mapView.removeDynamicMarkerFromMap("marker", "2");
+//		mapView.setDynamicMarkerImage("marker", "3", FontUtil.createLabel("3b", new LabelStyle()));
+//		mapView.setDynamicMarkerAnchorPoint("marker", "4", new PointF(0,-15));
+//		mapView.setDynamicMarkerAnchorPoint("marker", "6", new PointF(0,-20));
+//		mapView.setDynamicMarkerAnchorPoint("marker", "7", new PointF(0,10));
+//		mapView.setMaxTileRenderSize(190);
+		//mapView.setTileLevelBias(0);
 	}
 	
 	private Handler handler = new Handler();
@@ -113,12 +117,18 @@ public class UnitTest extends METest {
 		runnable.run();
 		
 		// add map
-        mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);
-        mapView.setMapAlpha(name, alpha);
-        mapView.setMapZOrder(name, zOrder);
-        
+//        mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);
+//        mapView.setMapAlpha(name, alpha);
+//        mapView.setMapZOrder(name, zOrder);
+//        		
+		mapView.addInternetMap(name, "http://a.tiles.mapbox.com/v3/examples.map-4l7djmvo");
+		
         TestDyanmicMarkers();
         
+		mapView.setPanAcceleration(-0.5f);
+		//mapView.setPanVelocityScale(2);
+		//mapView.setP
+		mapView.setMaxVirtualMapParentSearchDepth(1);
         // zoom to bounds
         if (bounds != null) {
         		mapView.lookAtCoordinates(bounds.min, bounds.max, 0, 0, 0.5);
@@ -128,6 +138,12 @@ public class UnitTest extends METest {
 	@Override
 	public void stop() {
 		mapView.removeMap(name, true);
+		mapView.removeMap("marker", true);
+		mapView.setMaxTileRenderSize(380);
+		mapView.setTileLevelBias(1);
+		mapView.setPanVelocityScale(1);
+		mapView.setPanAcceleration(-10.0f);
+		mapView.setMaxVirtualMapParentSearchDepth(5);
 	}
 
 }

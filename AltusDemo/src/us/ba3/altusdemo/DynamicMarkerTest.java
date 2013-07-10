@@ -4,7 +4,6 @@ import us.ba3.me.markers.DynamicMarker;
 import us.ba3.me.markers.DynamicMarkerMapInfo;
 import us.ba3.me.styles.LabelStyle;
 import us.ba3.me.util.FontUtil;
-import us.ba3.me.util.ImageUtil;
 import android.os.AsyncTask;
 import android.util.Log;
 import au.com.bytecode.opencsv.*;
@@ -49,7 +48,7 @@ class CreateLabelTask extends AsyncTask<String, Void, String> {
     @Override public void onPostExecute(String result)
     {
     	// set bitmap
-		marker.setImage(labelBitmap);
+		marker.setImage(labelBitmap, false);
 		marker.anchorPoint = new PointF(labelBitmap.getWidth()/2, labelBitmap.getHeight()/2);
 
 		// don't show the marker for population 0

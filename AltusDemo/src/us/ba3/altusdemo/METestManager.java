@@ -19,6 +19,11 @@ class Locations {
 	public static final CoordinateBounds AcadiaBounds = new CoordinateBounds(
 			new Location(44.2206, -68.503876), 
 			new Location(44.45633, -68.14682));
+	
+	public static final CoordinateBounds HoustonBounds = new CoordinateBounds(
+			new Location(29.6084164, -95.5534003),
+			new Location(29.940553, -95.185871));
+			
 }
 
 public class METestManager {
@@ -38,7 +43,7 @@ public class METestManager {
 		//testList.add(new IOMHaitiTest());
 		
 		testList.add(new VectorWorldMapTest("World Vector", getMapPath("NewVector","WorldVector"), Locations.USBounds, this));
-		testList.add(new VectorWorldMapTest("Houston Vector - Style 2", getMapPath("NewVector","Houston_Apple"), Locations.USBounds, this));
+		testList.add(new VectorWorldMapTest("Houston Vector - Style 2", getMapPath("NewVector","Houston_Apple"), Locations.HoustonBounds, this));
 		testList.add(new RasterMapTest("Sectional", getMapPath("Sectional","Charlotte_North"), Locations.CharlotteBounds));
 		testList.add(new RasterMapTest("Park Map", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
 		testList.add(new RasterMapTest("Terrain", getMapPath("BaseMap","Earth"), Locations.USBounds));

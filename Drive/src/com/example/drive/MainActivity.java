@@ -2,6 +2,8 @@ package com.example.drive;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import us.ba3.me.*;
 import us.ba3.me.markers.*;
@@ -15,14 +17,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.view.Menu;
-import android.animation.*;
-import android.view.animation.*;
 
-public class MainActivity extends Activity implements ValueAnimator.AnimatorUpdateListener {
 
-	ValueAnimator animator;
-	PointF[] routePoints;
+public class MainActivity extends Activity implements Runnable {
 
+	Location[] routePoints; //Points along the simulated route
+	int routeIndex = 0; //Index into the rotue
+	protected ScheduledThreadPoolExecutor threadPool; //Timer threadpool
+	double interval = 1.0; //timer interval in seconds
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,15 +67,9 @@ public class MainActivity extends Activity implements ValueAnimator.AnimatorUpda
 		//Zoom in to the route
 		mapView.lookAtCoordinates(new Location(35.77222179527386,-78.64227338056882),
 				new Location(35.77832583463119,-78.63659407693116), 150, 150, 1);
-
-		//Create a value animator
-		animator = ValueAnimator.ofInt(0, routePoints.length-1);
-		animator.setInterpolator(new LinearInterpolator());
-		animator.setDuration(120000);
-		animator.addUpdateListener(this);
-		animator.setRepeatCount(ValueAnimator.REVERSE);
-		animator.setStartDelay(0);
-		animator.start();
+		
+		//Start timer
+		startTimer();
 	}
 
 	@Override
@@ -82,47 +79,57 @@ public class MainActivity extends Activity implements ValueAnimator.AnimatorUpda
 		return true;
 	}
 
-	public void onAnimationUpdate (ValueAnimator animation) {
+	public void startTimer(){
+		threadPool = new ScheduledThreadPoolExecutor(1);
+		int millis = (int)(this.interval * 1000);
+		threadPool.scheduleAtFixedRate(this, 0, millis, TimeUnit.MILLISECONDS);
+	}
+	
+	public void run() {
+		timerTick();
+	}
+	
+	public void timerTick() {
 		
-		//Get the new index for the route
-		int index = (Integer)animation.getAnimatedValue();
-
+		//Increment / reset route index
+		routeIndex++;
+		if(routeIndex==this.routePoints.length){
+			routeIndex=0;
+		}
+		
 		//Get the map view
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
-
-		//Create a location object
-		Location location = new Location(routePoints[index].y, routePoints[index].x);
-
+				
 		//Set heading
 		double heading = 0;
-		if(index==0){
+		if(routeIndex==0){
 			mapView.setDynamicMarkerRotation("Vehicles", "car1", heading, 0);
 		}
-		if(index==6){
+		if(routeIndex==6){
 			heading = 90;
-			mapView.setDynamicMarkerRotation("Vehicles", "car1", heading, 1);
+			mapView.setDynamicMarkerRotation("Vehicles", "car1", heading, this.interval/4);
 		}
-		if(index==9){
+		if(routeIndex==9){
 			heading = 180;
-			mapView.setDynamicMarkerRotation("Vehicles", "car1", heading, 1);
+			mapView.setDynamicMarkerRotation("Vehicles", "car1", heading, this.interval/4);
 		}
 
 		//Determine animation duration
-		double animationDuration = 5;
-		if(index==0) {
+		double animationDuration = this.interval;
+		if(routeIndex==0) {
 			animationDuration = 0;
 		}
-		
+
 		//Update location of vehicle marker and beacon
-		mapView.setDynamicMarkerLocation("Vehicles", "car1", location, animationDuration);
-		mapView.updateAnimatedVectorCircleLocation("beacon", location, animationDuration);
+		mapView.setDynamicMarkerLocation("Vehicles", "car1", routePoints[routeIndex], animationDuration);
+		mapView.updateAnimatedVectorCircleLocation("beacon", routePoints[routeIndex], animationDuration);
 	}
 
-	public void addBeacon(MapView mapView, PointF point) {
+	public void addBeacon(MapView mapView, Location location) {
 		//Add animated vector circle
 		AnimatedVectorCircle c = new AnimatedVectorCircle();
 		c.name = "beacon";
-		c.location = new Location(point.y, point.x);
+		c.location = location;
 		c.minRadius = 5;
 		c.maxRadius = 75;
 		c.animationDuration = 2.5f;
@@ -136,7 +143,7 @@ public class MainActivity extends Activity implements ValueAnimator.AnimatorUpda
 		mapView.addAnimatedVectorCircle(c);
 	}
 
-	public void addVehicleMarker(MapView mapView, PointF point) {
+	public void addVehicleMarker(MapView mapView, Location location) {
 
 		//Add dynamic marker map layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
@@ -147,15 +154,14 @@ public class MainActivity extends Activity implements ValueAnimator.AnimatorUpda
 		//Add a marker
 		DynamicMarker vehicle = new DynamicMarker();
 		vehicle.name = "car1";
-		vehicle.setImage(loadBitmap("map-arrow.png"));
+		vehicle.setImage(loadBitmap("map-arrow.png"), false);
 		vehicle.anchorPoint = new PointF(16,16);
-		vehicle.location.longitude = point.x;
-		vehicle.location.latitude = point.y;
+		vehicle.location = location;
 		mapView.addDynamicMarkerToMap("Vehicles", vehicle);
 	}
 
 	//Helper function to add markers to route end points
-	public void addMarkers(MapView mapView, PointF[] routePoints){
+	public void addMarkers(MapView mapView, Location[] routePoints){
 		//Add dynamic marker map layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
 		mapInfo.name = "Markers";
@@ -165,18 +171,16 @@ public class MainActivity extends Activity implements ValueAnimator.AnimatorUpda
 		//Add a markers
 		DynamicMarker startPoint = new DynamicMarker();
 		startPoint.name = "startPoint";
-		startPoint.setImage(loadBitmap("bluedot.png"));
+		startPoint.setImage(loadBitmap("bluedot.png"), false);
 		startPoint.anchorPoint = new PointF(16,16);
-		startPoint.location.longitude = routePoints[0].x;
-		startPoint.location.latitude = routePoints[0].y;
+		startPoint.location = routePoints[0];
 		mapView.addDynamicMarkerToMap("Markers", startPoint);
 
 		DynamicMarker endPoint = new DynamicMarker();
 		endPoint.name = "endPoint";
-		endPoint.setImage(loadBitmap("greendot.png"));
+		endPoint.setImage(loadBitmap("greendot.png"), false);
 		endPoint.anchorPoint = new PointF(16,16);
-		endPoint.location.longitude = routePoints[routePoints.length-1].x;
-		endPoint.location.latitude = routePoints[routePoints.length-1].y;
+		endPoint.location = routePoints[routePoints.length-1];
 		mapView.addDynamicMarkerToMap("Markers", endPoint);
 	}
 
@@ -194,21 +198,21 @@ public class MainActivity extends Activity implements ValueAnimator.AnimatorUpda
 	}
 
 	//Helper function to create an array of points to represent a route.
-	public PointF[] createRoutePoints(){
-		ArrayList<PointF> points = new ArrayList<PointF>();
-		points.add(new PointF(-78.64227338056882f,35.77222179527386f));
-		points.add(new PointF(-78.64211160843469f,35.77300435847386f));
-		points.add(new PointF(-78.64204765649093f,35.77431930112859f));
-		points.add(new PointF(-78.64196220184964f,35.77567608136691f));
-		points.add(new PointF(-78.64187508617212f,35.77700395100487f));
-		points.add(new PointF(-78.64183947388348f,35.77832583463119f));
-		points.add(new PointF(-78.64020036607604f,35.77827906552807f));
-		points.add(new PointF(-78.63823940725123f,35.77818133831267f));
-		points.add(new PointF(-78.63659407693116f,35.7781182250745f));
-		points.add(new PointF(-78.63668612449102f,35.77684002315468f));
-		points.add(new PointF(-78.63672620342922f,35.77552738790911f));
-		PointF[] pointArray = points.toArray(new PointF[points.size()]);
-		return pointArray;
+	public Location[] createRoutePoints(){
+		ArrayList<Location> locations = new ArrayList<Location>();
+		locations.add(new Location(35.77222179527386,-78.64227338056882));
+		locations.add(new Location(35.77300435847386,-78.64211160843469));
+		locations.add(new Location(35.77431930112859,-78.64204765649093));
+		locations.add(new Location(35.77567608136691,-78.64196220184964));
+		locations.add(new Location(35.77700395100487,-78.64187508617212));
+		locations.add(new Location(35.77832583463119,-78.64183947388348));
+		locations.add(new Location(35.77827906552807,-78.64020036607604));
+		locations.add(new Location(35.77818133831267,-78.63823940725123));
+		locations.add(new Location(35.7781182250745,-78.63659407693116));
+		locations.add(new Location(35.77684002315468,-78.63668612449102));
+		locations.add(new Location(35.77552738790911,-78.63672620342922));
+		Location[] locationArray = locations.toArray(new Location[locations.size()]);
+		return locationArray;
 	}
 
 }

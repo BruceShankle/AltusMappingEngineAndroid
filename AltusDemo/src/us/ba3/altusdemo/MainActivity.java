@@ -341,8 +341,7 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 			marker.location = new Location(35.7719, -78.6389);
 			marker.anchorPoint.x = 12;
 			marker.anchorPoint.y = 12;
-			marker.setImage(getBitmapAsset(imagePath));
-			marker.compressTexture = false;
+			marker.setImage(getBitmapAsset(imagePath), false);
 			mapView.addDynamicMarkerToMap(mapName, marker);
 
 			//Add animated vector circle

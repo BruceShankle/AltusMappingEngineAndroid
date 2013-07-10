@@ -82,11 +82,10 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 		DynamicMarker marker = new DynamicMarker();
 		marker.rotationType = _markerRotationType;
 		marker.name = "blueplane";
-		marker.cachedImageName = "blueplane";
+		marker.setImage("blueplane");
 		marker.location = _currentSample.getLocation();
 		marker.anchorPoint.x = 32;
 		marker.anchorPoint.y = 32;
-		marker.compressTexture = false;
 		_mapView.addDynamicMarkerToMap("blueplane", marker);
 	}
 	
@@ -141,9 +140,9 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 		this._mapView.addMapUsingMapInfo(meVectorMapInfo);
 		
 		//Create an array of points for the flight path.
-		ArrayList<PointF> pointList = new ArrayList<PointF>();
+		ArrayList<Location> pointList = new ArrayList<Location>();
 		for(FlightSample sample : FlightPlayback.getFlightSamples()){
-			pointList.add(sample.getPoint());
+			pointList.add(sample.getLocation());
 		}
 		
 		//Create a style for the flight path
@@ -154,7 +153,7 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 		lineStyle.strokeWidth = 4;
 		
 		//Add the line
-		PointF[] pointArray = pointList.toArray(new PointF[pointList.size()]);
+		Location[] pointArray = pointList.toArray(new Location[pointList.size()]);
 		this._mapView.addLineToVectorMap("flightpath", pointArray, lineStyle);
 	}
 	
