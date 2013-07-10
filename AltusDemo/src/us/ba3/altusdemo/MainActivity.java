@@ -101,7 +101,14 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 		fileSize = 6422528;
 		_assetManager.addDownloadableAsset(
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
-
+		
+		//MBTiles map
+		targetFolder = "MBTiles";
+		fileName = "open-streets-dc-15.mbtiles";
+		fileSize = 6032384;
+		_assetManager.addDownloadableAsset(
+				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
+		
 		_assetManager.validateAssets();
 	}
 

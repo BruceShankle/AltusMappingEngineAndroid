@@ -23,6 +23,10 @@ class Locations {
 	public static final CoordinateBounds HoustonBounds = new CoordinateBounds(
 			new Location(29.6084164, -95.5534003),
 			new Location(29.940553, -95.185871));
+	
+	public static final CoordinateBounds DCBounds = new CoordinateBounds(
+			new Location(38.848,-77.1127),
+			new Location(38.933,-76.9665));
 			
 }
 
@@ -47,6 +51,7 @@ public class METestManager {
 		testList.add(new RasterMapTest("Sectional", getMapPath("Sectional","Charlotte_North"), Locations.CharlotteBounds));
 		testList.add(new RasterMapTest("Park Map", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
 		testList.add(new RasterMapTest("Terrain", getMapPath("BaseMap","Earth"), Locations.USBounds));
+		testList.add(new MBTilesMapTest("MBTiles - D.C.", getMapPath("MBTiles","open-streets-dc-15.mbtiles"), Locations.DCBounds));
 		testList.add(new VectorShapeTest("Shapes", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
 		testList.add(new DynamicMarkerTest("Markers", getMapPath("BaseMap", "Earth"), Locations.USBounds));
 		testList.add(new UnitTest("Unit Tests", getMapPath("BaseMap", "Earth"), Locations.USBounds));		

@@ -35,16 +35,13 @@ public class MEAssetManager {
 	public boolean validateDownloadableAsset(MEDownloadableAsset asset) {
 		if(asset.isArchive) {
 			for(MEFileAsset internalAsset : asset.archiveContents) {
-				Log.w("i0",internalAsset.targetFileName);
 				if(!validateAsset(internalAsset)){
-					Log.w("i1",internalAsset.targetFileName);
 					return false;
 				}
 			}
 			return true;
 		}
 		else{
-			Log.w("foo",asset.targetFileName);
 			return validateAsset(asset);
 		}
 	}
@@ -52,18 +49,13 @@ public class MEAssetManager {
 	public boolean validateAsset(MEFileAsset asset) {
 		File targetFolder = new File(_activity.getExternalFilesDir(null), asset.targetFolder);
 		if(!targetFolder.exists()) {
-			Log.w("i2",asset.targetFileName);
 			return false;
 		}
 		File targetFile = new File(targetFolder, asset.targetFileName);
 		if(!targetFile.exists()) {
-			Log.w("i3",asset.targetFileName);
 			return false;
 		}
 		if(targetFile.length()!=asset.fileSize){
-			Log.w("i4",asset.targetFileName + " Expected" + asset.fileSize + " bytes");
-			//Delete failed download.
-			//targetFile.delete();
 			return false;
 		}
 		return true;
