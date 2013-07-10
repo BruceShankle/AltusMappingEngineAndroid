@@ -1,7 +1,6 @@
 package us.ba3.altusdemo.assetmanagement;
 
 import android.app.Activity;
-import android.util.Log;
 import java.io.*;
 import java.util.*;
 

@@ -65,8 +65,11 @@ public class MainActivity extends Activity implements Runnable {
 		addBeacon(mapView, routePoints[0]);
 
 		//Zoom in to the route
-		mapView.lookAtCoordinates(new Location(35.77222179527386,-78.64227338056882),
-				new Location(35.77832583463119,-78.63659407693116), 150, 150, 1);
+		mapView.setLocationThatFitsCoordinates(
+				new Location(35.77222179527386,-78.64227338056882),
+				new Location(35.77832583463119,-78.63659407693116),
+				150,150,1);
+		
 		
 		//Start timer
 		startTimer();
@@ -122,7 +125,7 @@ public class MainActivity extends Activity implements Runnable {
 
 		//Update location of vehicle marker and beacon
 		mapView.setDynamicMarkerLocation("Vehicles", "car1", routePoints[routeIndex], animationDuration);
-		mapView.updateAnimatedVectorCircleLocation("beacon", routePoints[routeIndex], animationDuration);
+		mapView.setAnimatedVectorCircleLocation("beacon", routePoints[routeIndex], animationDuration);
 	}
 
 	public void addBeacon(MapView mapView, Location location) {

@@ -21,7 +21,7 @@ public class FlightPlaybackTrackUpForward extends FlightPlaybackTrackUp {
 	public void stop(){
 		_mapView.setTrackUpForwardDistance(0, this.interval);
 		_mapView.setCameraOrientation(0,0,0,this.interval);
-		//_meMapView.disableTrackUp();
+		_mapView.setTrackUpForwardDistance(0, this.interval);
 		super.stop();
 	}
 }

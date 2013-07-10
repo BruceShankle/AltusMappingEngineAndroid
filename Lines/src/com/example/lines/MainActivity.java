@@ -48,8 +48,10 @@ public class MainActivity extends Activity {
 		this.addMarkers(mapView, routePoints);
 
 		//Zoom in to the route
-		mapView.lookAtCoordinates(new Location(35.77222179527386,-78.64227338056882),
-				new Location(35.77832583463119,-78.63659407693116), 150, 150, 1);
+		mapView.setLocationThatFitsCoordinates(
+				new Location(35.77222179527386,-78.64227338056882),
+				new Location(35.77832583463119,-78.63659407693116),
+				150, 150, 1);
 	}
 
 	@Override

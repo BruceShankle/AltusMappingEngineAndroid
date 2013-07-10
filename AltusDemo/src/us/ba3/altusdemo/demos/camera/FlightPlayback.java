@@ -35,13 +35,6 @@ class FlightSample {
 	public Location getLocation(){
 		return new Location(this.lat, this.lon);
 	}
-	
-	public PointF getPoint(){
-		PointF p = new PointF();
-		p.x = (float) this.lon;
-		p.y = (float) this.lat;
-		return p;
-	}
 }
 
 public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDelegate {
@@ -124,13 +117,13 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 	}
 	
 	public void updateOwnShipBeacon(){
-		this._mapView.updateAnimatedVectorCircleLocation("locationRing",
+		this._mapView.setAnimatedVectorCircleLocation("locationRing",
 				_currentSample.getLocation(),
 				this.interval);
 	}
 	
 	public void removeOwnShipBeacon(){
-		this._mapView.removeMap("locationRing", false);
+		this._mapView.removeAnimatedVectorCircle("locationRing");
 	}
 	
 	public void addFlightPath(){
@@ -173,7 +166,7 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 			_currentSample = nextSample();
 		}
 		
-		this._mapView.setCenterCoordinate(_currentSample.lon, _currentSample.lat, this.interval);
+		this._mapView.setLocation(_currentSample.getLocation(), this.interval);
 		this.addOwnShipBeacon();
 		this.addOwnShipMarker();
 		this.addFlightPath();
@@ -199,7 +192,7 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 	}
 	
 	public void updateCamera(){
-		this._mapView.setCenterCoordinate(_currentSample.lon, _currentSample.lat, this.interval);
+		this._mapView.setLocation(_currentSample.getLocation(), this.interval);
 	}
 	
 	@Override

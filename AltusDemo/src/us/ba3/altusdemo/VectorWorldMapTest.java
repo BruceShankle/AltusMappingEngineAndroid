@@ -67,7 +67,7 @@ public class VectorWorldMapTest extends METest {
         
         // zoom to bounds
         if (bounds != null) {
-        		mapView.lookAtCoordinates(bounds.min, bounds.max, 0, 0, 0.5);
+        		mapView.setLocationThatFitsCoordinates(bounds.min, bounds.max, 0, 0, 0.5);
         }
 	}
 	

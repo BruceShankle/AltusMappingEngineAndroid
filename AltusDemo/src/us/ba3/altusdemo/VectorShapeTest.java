@@ -108,9 +108,9 @@ public class VectorShapeTest extends METest implements ValueAnimator.AnimatorUpd
 
         // zoom to bounds
         if (bounds != null) {
-        		mapView.lookAtCoordinates(new Location(44.3760512, -68.1945803),
-        								  new Location(44.40938341192684, -68.24611502554615),
-        								  200, 200, 0.5);
+        		mapView.setLocationThatFitsCoordinates(new Location(44.3760512, -68.1945803),
+        								  			   new Location(44.40938341192684, -68.24611502554615),
+        								  			   200, 200, 0.5);
         }
 	}
 

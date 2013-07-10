@@ -7,7 +7,6 @@ import us.ba3.me.*;
 import us.ba3.me.markers.*;
 import us.ba3.me.util.*;
 import android.os.Bundle;
-import android.os.Environment;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
@@ -118,12 +117,8 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 		this.setTitle("BA3 Altus Mapping Engine Demo - www.ba3.us");
 		super.onCreate(savedInstanceState);
 
-		//Get storage paths
-		String internalPath = this.getFilesDir().getAbsolutePath();
-		String externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-
 		//Set internal files path for tests
-		METest.internalFilesPath = internalPath;
+		METest.internalFilesPath = this.getFilesDir().getAbsolutePath();
 
 		//Set up downloadable assets
 		this.setupAssets();
@@ -142,7 +137,6 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 			}
 		});
 
-		mapView.setStoragePaths(internalPath, externalPath);
 		mapView.setBackgroundColor(Color.GRAY);
 		layout.addView(mapView);
 
@@ -370,7 +364,7 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 		}
 		else{
 			mapView.removeMap(mapName, false);
-			mapView.removeMap("locationRing", false);
+			mapView.removeAnimatedVectorCircle("locationRing");
 		}
 	}
 

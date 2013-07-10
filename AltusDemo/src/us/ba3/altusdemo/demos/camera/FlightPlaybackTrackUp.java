@@ -13,10 +13,7 @@ public class FlightPlaybackTrackUp extends FlightPlayback {
 	
 	@Override
 	public void updateCamera(){
-		this._mapView.setCenterCoordinate(_currentSample.lon,
-				_currentSample.lat,
-				this.interval);
-		
+		this._mapView.setLocation(_currentSample.getLocation(), this.interval);
 		this._mapView.setCameraOrientation(_currentSample.hdg,
 				_currentSample.roll,
 				_currentSample.pitch,
@@ -33,14 +30,14 @@ public class FlightPlaybackTrackUp extends FlightPlayback {
 	
 	@Override
 	public void start(MapView mapView, Context context) {
-		mapView.enableTrackUp();
+		mapView.setTrackUp(true);
 		super.start(mapView, context);
 	}
 	
 	@Override
 	public void stop(){
 		_mapView.setCameraOrientation(0,0,0,this.interval);
-		//_meMapView.disableTrackUp();
+		_mapView.setTrackUp(false);
 		super.stop();
 	}
 }
