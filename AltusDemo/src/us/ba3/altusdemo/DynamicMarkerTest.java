@@ -1,6 +1,7 @@
 package us.ba3.altusdemo;
 import us.ba3.me.*;
 import us.ba3.me.markers.DynamicMarker;
+import us.ba3.me.markers.DynamicMarkerMapDelegate;
 import us.ba3.me.markers.DynamicMarkerMapInfo;
 import us.ba3.me.styles.LabelStyle;
 import us.ba3.me.util.FontUtil;
@@ -60,7 +61,7 @@ class CreateLabelTask extends AsyncTask<String, Void, String> {
   }
 }
 
-public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorUpdateListener {
+public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorUpdateListener, DynamicMarkerMapDelegate {
 
 	String mapPath;
 	CoordinateBounds bounds;
@@ -160,7 +161,8 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
 		mapInfo.zOrder = 2000;
 		mapInfo.name = markerMapName;
-		mapInfo.hitTestingEnabled = false;
+		mapInfo.hitTestingEnabled = true;
+		mapInfo.delegate = this;
 		mapView.addMapUsingMapInfo(mapInfo);
 		
 		// add markers
@@ -173,7 +175,7 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 		animator.addUpdateListener(this);
 		animator.setRepeatCount(ValueAnimator.INFINITE);
 		animator.setStartDelay(1000);
-		animator.start();
+		//animator.start();
         
         // zoom to bounds
         if (bounds != null) {
@@ -218,6 +220,16 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 	        	cities.add(city);
 	        }
         } catch (IOException e) { }
+	}
+	
+	@Override
+	public void tapOnMarker(
+			String mapName,
+			String markerName,
+			PointF screenPoint,
+			PointF markerPoint) {
+		
+		Log.w("tapOnMarker", "map: " + mapName + ", marker: " + markerName + ", screenPoint: (" + screenPoint.x + ", " + screenPoint.y + "), markerPoint: (" + markerPoint.x + ", " + markerPoint.y + ")");
 	}
 
 }

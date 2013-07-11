@@ -46,12 +46,12 @@ public class METestManager {
 		testList.add(new MapQuestTest());
 		//testList.add(new IOMHaitiTest());
 		
-		testList.add(new VectorWorldMapTest("World Vector", getMapPath("NewVector","WorldVector"), Locations.USBounds, this));
-		testList.add(new VectorWorldMapTest("Houston Vector - Style 2", getMapPath("NewVector","Houston_Apple"), Locations.HoustonBounds, this));
+		//testList.add(new VectorWorldMapTest("World Vector", getMapPath("NewVector","WorldVector"), Locations.USBounds, this));
+		testList.add(new VectorWorldMapTest("Vector Streets", getMapPath("NewVector","Houston_Apple"), Locations.HoustonBounds, this));
 		testList.add(new RasterMapTest("Sectional", getMapPath("Sectional","Charlotte_North"), Locations.CharlotteBounds));
 		testList.add(new RasterMapTest("Park Map", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
 		testList.add(new RasterMapTest("Terrain", getMapPath("BaseMap","Earth"), Locations.USBounds));
-		testList.add(new MBTilesMapTest("MBTiles - D.C.", getMapPath("MBTiles","open-streets-dc-15.mbtiles"), Locations.DCBounds));
+		testList.add(new MBTilesMapTest("MBTiles", getMapPath("MBTiles","open-streets-dc-15.mbtiles"), Locations.DCBounds));
 		testList.add(new VectorShapeTest("Shapes", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
 		testList.add(new DynamicMarkerTest("Markers", getMapPath("BaseMap", "Earth"), Locations.USBounds));
 		testList.add(new UnitTest("Unit Tests", getMapPath("BaseMap", "Earth"), Locations.USBounds));		

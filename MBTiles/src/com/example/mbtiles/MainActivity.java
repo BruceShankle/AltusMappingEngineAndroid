@@ -31,8 +31,8 @@ public class MainActivity extends Activity {
 
         // Zoom into washington D.C.
         	mapView.setLocationThatFitsCoordinates(
-        			new Location(38.848,-77.1127),
-        			new Location(38.933,-76.9665),
+        			new Location(38.872325,-77.102248),
+        			new Location(38.920421,-76.965606),
         			0, 0);
         	
 	}

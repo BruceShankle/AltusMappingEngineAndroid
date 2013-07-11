@@ -23,7 +23,7 @@ import android.provider.*;
 import android.app.*;
 import java.io.*;
 
-public class MainActivity extends Activity implements DynamicMarkerMapDelegate {	
+public class MainActivity extends Activity {	
 	protected MapView mapView;
 	protected METestManager _testManager;
 	protected Spinner _mapSpinner;
@@ -73,7 +73,7 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 		_assetManager.addDownloadableAsset(earthZip);
 
 		//World vector map.
-		targetFolder = "NewVector";
+		/*targetFolder = "NewVector";
 		fileName = "WorldVector.zip";
 		fileSize = 19681630;
 		MEDownloadableAsset worldVectorZip2 = new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,true,fileSize);
@@ -81,7 +81,7 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 		MEFileAsset worldVectorSqlite2 = new MEFileAsset(targetFolder, "WorldVector.sqlite", 916480);
 		worldVectorZip2.addArchiveFile(worldVectorMap2);
 		worldVectorZip2.addArchiveFile(worldVectorSqlite2);
-		_assetManager.addDownloadableAsset(worldVectorZip2);
+		_assetManager.addDownloadableAsset(worldVectorZip2);*/
 
 		//Apple style vector map of Houston
 		targetFolder = "NewVector";
@@ -329,7 +329,6 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 
 			//Add dynamic marker layer
 			DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
-			mapInfo.dynamicMarkerMapDelegate = this;
 			mapInfo.zOrder = 1000;
 			mapInfo.name = mapName;
 			mapInfo.hitTestingEnabled = false;
@@ -346,25 +345,19 @@ public class MainActivity extends Activity implements DynamicMarkerMapDelegate {
 			mapView.addDynamicMarkerToMap(mapName, marker);
 
 			//Add animated vector circle
-			AnimatedVectorCircle c = new AnimatedVectorCircle();
+			HaloPulse c = new HaloPulse();
 			c.name = "locationRing";
 			c.location = marker.location;
-			c.minRadius = 5;
-			c.maxRadius = 75;
-			c.animationDuration = 2.5f;
-			c.repeatDelay = 0;
-			c.fade = true;
-			c.fadeDelay = 1;
 			c.zOrder = 999;
 			c.lineStyle.strokeColor = Color.WHITE;
 			c.lineStyle.outlineColor = Color.rgb(30, 144, 255);
 			c.lineStyle.outlineWidth = 4;
-			mapView.addAnimatedVectorCircle(c);
+			mapView.addHaloPulse(c);
 
 		}
 		else{
 			mapView.removeMap(mapName, false);
-			mapView.removeAnimatedVectorCircle("locationRing");
+			mapView.removeHaloPulse("locationRing");
 		}
 	}
 

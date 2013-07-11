@@ -4,6 +4,7 @@ import us.ba3.me.markers.DynamicMarker;
 import us.ba3.me.markers.DynamicMarkerMapInfo;
 import us.ba3.me.styles.LabelStyle;
 import us.ba3.me.util.FontUtil;
+import us.ba3.me.ArrowPulse;
 import android.os.Handler;
 
 public class UnitTest extends METest {
@@ -92,6 +93,8 @@ public class UnitTest extends METest {
 //		mapView.setDynamicMarkerAnchorPoint("marker", "7", new PointF(0,10));
 //		mapView.setMaxTileRenderSize(190);
 		//mapView.setTileLevelBias(0);
+		
+		mapView.removeArrowPulse("pulse");
 	}
 	
 	private Handler handler = new Handler();
@@ -125,6 +128,18 @@ public class UnitTest extends METest {
 		
         TestDyanmicMarkers();
         
+        ArrowPulse pulse = new ArrowPulse();
+        pulse.name = "pulse";
+        pulse.location = new Location(60, -100);
+        mapView.addArrowPulse(pulse);
+        mapView.setArrowPulseLocation("pulse", new Location(50,-100), 10);
+        
+        pulse.style = ArrowPulseStyle.ArrowOutwardPointingWithoutCircle;
+		pulse.name = "pulse2";
+		pulse.location = new Location(40, -100);
+        mapView.addArrowPulse(pulse);
+        
+		
 		mapView.setPanAcceleration(-0.5f);
 		//mapView.setPanVelocityScale(2);
 		//mapView.setP
@@ -144,6 +159,7 @@ public class UnitTest extends METest {
 		mapView.setPanVelocityScale(1);
 		mapView.setPanAcceleration(-10.0f);
 		mapView.setMaxVirtualMapParentSearchDepth(5);
+		mapView.removeArrowPulse("pulse2");
 	}
 
 }

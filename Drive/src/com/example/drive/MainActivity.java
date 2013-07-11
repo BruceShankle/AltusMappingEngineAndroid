@@ -125,25 +125,25 @@ public class MainActivity extends Activity implements Runnable {
 
 		//Update location of vehicle marker and beacon
 		mapView.setDynamicMarkerLocation("Vehicles", "car1", routePoints[routeIndex], animationDuration);
-		mapView.setAnimatedVectorCircleLocation("beacon", routePoints[routeIndex], animationDuration);
+		mapView.setHaloPulseLocation("beacon", routePoints[routeIndex], animationDuration);
 	}
 
 	public void addBeacon(MapView mapView, Location location) {
 		//Add animated vector circle
-		AnimatedVectorCircle c = new AnimatedVectorCircle();
-		c.name = "beacon";
-		c.location = location;
-		c.minRadius = 5;
-		c.maxRadius = 75;
-		c.animationDuration = 2.5f;
-		c.repeatDelay = 0;
-		c.fade = true;
-		c.fadeDelay = 1;
-		c.zOrder = 4;
-		c.lineStyle.strokeColor = Color.WHITE;
-		c.lineStyle.outlineColor = Color.rgb(0, 255, 0);
-		c.lineStyle.outlineWidth = 4;
-		mapView.addAnimatedVectorCircle(c);
+		HaloPulse beacon = new HaloPulse();
+		beacon.name = "beacon";
+		beacon.location = location;
+		beacon.minRadius = 5;
+		beacon.maxRadius = 75;
+		beacon.animationDuration = 2.5f;
+		beacon.repeatDelay = 0;
+		beacon.fade = true;
+		beacon.fadeDelay = 1;
+		beacon.zOrder = 4;
+		beacon.lineStyle.strokeColor = Color.WHITE;
+		beacon.lineStyle.outlineColor = Color.rgb(0, 255, 0);
+		beacon.lineStyle.outlineWidth = 4;
+		mapView.addHaloPulse(beacon);
 	}
 
 	public void addVehicleMarker(MapView mapView, Location location) {

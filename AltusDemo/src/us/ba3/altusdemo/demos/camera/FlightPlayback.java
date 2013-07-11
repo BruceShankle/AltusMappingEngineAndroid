@@ -37,7 +37,7 @@ class FlightSample {
 	}
 }
 
-public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDelegate {
+public class FlightPlayback extends DemoWithTimer {
 
 	protected static ArrayList<FlightSample> _flightSamples;
 	protected static int _sampleIndex;
@@ -65,7 +65,6 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 		
 		//Add dynamic marker layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
-		mapInfo.dynamicMarkerMapDelegate = this;
 		mapInfo.zOrder = 1000;
 		mapInfo.name = "blueplane";
 		mapInfo.hitTestingEnabled = false;
@@ -100,7 +99,7 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 	
 	public void addOwnShipBeacon(){
 		//Add animated vector circle
-		AnimatedVectorCircle c = new AnimatedVectorCircle();
+		HaloPulse c = new HaloPulse();
 		c.name = "locationRing";
 		c.location = _currentSample.getLocation();
 		c.minRadius = 5;
@@ -113,17 +112,17 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 		c.lineStyle.strokeColor = Color.WHITE;
 		c.lineStyle.outlineColor = Color.rgb(30, 144, 255);
 		c.lineStyle.outlineWidth = 4;
-		this._mapView.addAnimatedVectorCircle(c);
+		this._mapView.addHaloPulse(c);
 	}
 	
 	public void updateOwnShipBeacon(){
-		this._mapView.setAnimatedVectorCircleLocation("locationRing",
+		this._mapView.setHaloPulseLocation("locationRing",
 				_currentSample.getLocation(),
 				this.interval);
 	}
 	
 	public void removeOwnShipBeacon(){
-		this._mapView.removeAnimatedVectorCircle("locationRing");
+		this._mapView.removeHaloPulse("locationRing");
 	}
 	
 	public void addFlightPath(){
@@ -166,7 +165,12 @@ public class FlightPlayback extends DemoWithTimer implements DynamicMarkerMapDel
 			_currentSample = nextSample();
 		}
 		
-		this._mapView.setLocation(_currentSample.getLocation(), this.interval);
+		//Zoom in to Mt. Ranier area
+		this._mapView.setLocationThatFitsCoordinates(
+				new Location(46.816508,-121.849219),
+				new Location(46.875096,-121.739944),
+				20, 20, this.interval);
+		
 		this.addOwnShipBeacon();
 		this.addOwnShipMarker();
 		this.addFlightPath();
