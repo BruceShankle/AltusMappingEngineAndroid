@@ -100,14 +100,14 @@ public class MainActivity extends Activity {
 		fileSize = 6422528;
 		_assetManager.addDownloadableAsset(
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
-		
+
 		//MBTiles map
 		targetFolder = "MBTiles";
 		fileName = "open-streets-dc-15.mbtiles";
 		fileSize = 6032384;
 		_assetManager.addDownloadableAsset(
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
-		
+
 		_assetManager.validateAssets();
 	}
 
@@ -169,6 +169,7 @@ public class MainActivity extends Activity {
 		buttonRow.addView(_mapSpinner);
 
 		//Add switch to toggle GPS on / off
+		/*
 		_gpsSwitch = new Switch(this);
 		boolean gpsAvailable = locationServicesAvailable();
 		_gpsSwitch.setEnabled(gpsAvailable);
@@ -180,7 +181,7 @@ public class MainActivity extends Activity {
 				MainActivity.this.enableLocationLayer(_gpsSwitch.isChecked());
 			}
 		});
-		buttonRow.addView(_gpsSwitch);
+		buttonRow.addView(_gpsSwitch);*/
 
 		//Create and add a spinner populated by demo names
 		_demoManager = new DemoManager(mapView, getApplication());
@@ -214,9 +215,10 @@ public class MainActivity extends Activity {
 		_mapSpinner.setSelection(1);
 
 		//Ask user to turn on GPS
+		/*
 		if(!gpsAvailable){
 			promptToEnableLocationServices();
-		}
+		}*/
 	}
 
 	protected boolean locationServicesAvailable(){
@@ -285,7 +287,7 @@ public class MainActivity extends Activity {
 
 	@Override protected void onResume() {
 		super.onResume();
-		_gpsSwitch.setEnabled(this.locationServicesAvailable());
+		//_gpsSwitch.setEnabled(this.locationServicesAvailable());
 	}
 
 	@Override

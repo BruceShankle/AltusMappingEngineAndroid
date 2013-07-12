@@ -5,12 +5,12 @@ import android.app.Activity;
 import android.view.Menu;
 import us.ba3.me.*;
 public class MainActivity extends Activity {
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		//Get the map view and add a map.
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
 		mapView.addInternetMap("MapQuest Aerial","http://otile1.mqcdn.com/tiles/1.0.0/sat");

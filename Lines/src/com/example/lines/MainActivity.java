@@ -37,10 +37,10 @@ public class MainActivity extends Activity {
 		lineStyle.outlineWidth = 3;
 		lineStyle.strokeColor = Color.YELLOW;
 		lineStyle.strokeWidth = 9;
-		
+
 		//Get the route points
 		Location[] routePoints = createRoutePoints();
-		
+
 		//Add the line to the vector layer
 		mapView.addLineToVectorMap("route", routePoints, lineStyle);
 

@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements Runnable {
 	int routeIndex = 0; //Index into the rotue
 	protected ScheduledThreadPoolExecutor threadPool; //Timer threadpool
 	double interval = 1.0; //timer interval in seconds
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements Runnable {
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
 		mapView.addInternetMap("MapQuest Streets","http://otile1.mqcdn.com/tiles/1.0.0/osm");
 
-		//Add vector layer
+		//		//Add vector layer
 		VectorMapInfo vectorMapInfo = new VectorMapInfo();
 		vectorMapInfo.name = "route";
 		vectorMapInfo.zOrder = 2;
@@ -69,8 +69,8 @@ public class MainActivity extends Activity implements Runnable {
 				new Location(35.77222179527386,-78.64227338056882),
 				new Location(35.77832583463119,-78.63659407693116),
 				150,150,1);
-		
-		
+
+
 		//Start timer
 		startTimer();
 	}
@@ -87,22 +87,22 @@ public class MainActivity extends Activity implements Runnable {
 		int millis = (int)(this.interval * 1000);
 		threadPool.scheduleAtFixedRate(this, 0, millis, TimeUnit.MILLISECONDS);
 	}
-	
+
 	public void run() {
 		timerTick();
 	}
-	
+
 	public void timerTick() {
-		
+
 		//Increment / reset route index
 		routeIndex++;
 		if(routeIndex==this.routePoints.length){
 			routeIndex=0;
 		}
-		
+
 		//Get the map view
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
-				
+
 		//Set heading
 		double heading = 0;
 		if(routeIndex==0){
