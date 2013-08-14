@@ -158,6 +158,8 @@ public class FlightPlayback extends DemoWithTimer {
 		this._mapView = mapView;
 		this._context = context;
 		
+		mapView.removeAllMaps(true);
+		
 		//Load flight samples?
 		if(_flightSamples==null){
 			loadSamples(context);

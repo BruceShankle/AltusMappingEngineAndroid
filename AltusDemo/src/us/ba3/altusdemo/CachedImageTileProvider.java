@@ -8,8 +8,9 @@ public class CachedImageTileProvider implements TileProvider {
 	public CachedImageTileProvider(String cachedImageName){
 		this.cachedImageName = cachedImageName;
 	}
+	
 	public void requestTile(TileProviderRequest request) {
-		request.tileProviderResponse = TileProviderResponse.kTileResponseRenderNamedCachedImage;
+		request.responseType = TileProviderResponse.kTileResponseRenderNamedCachedImage;
 		request.cachedImageName = this.cachedImageName;
 	}
 }

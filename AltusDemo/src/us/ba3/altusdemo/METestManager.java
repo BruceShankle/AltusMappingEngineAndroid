@@ -54,7 +54,8 @@ public class METestManager {
 		testList.add(new MBTilesMapTest("MBTiles", getMapPath("MBTiles","open-streets-dc-15.mbtiles"), Locations.DCBounds));
 		testList.add(new VectorShapeTest("Shapes", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
 		testList.add(new DynamicMarkerTest("Markers", getMapPath("BaseMap", "Earth"), Locations.USBounds));
-		testList.add(new UnitTest("Unit Tests", getMapPath("BaseMap", "Earth"), Locations.USBounds));		
+		//testList.add(new UnitTest("Unit Tests", getMapPath("BaseMap", "Earth"), Locations.USBounds));		
+		testList.add(new TileProviderTest("Tile Provider"));
 	}
 
 	String getMapPath(String category, String mapName) {

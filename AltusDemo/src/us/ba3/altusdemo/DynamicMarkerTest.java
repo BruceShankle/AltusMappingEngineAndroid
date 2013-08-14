@@ -50,6 +50,7 @@ class CreateLabelTask extends AsyncTask<String, Void, String> {
     {
     	// set bitmap
 		marker.setImage(labelBitmap, false);
+		marker.weight = population;
 		marker.anchorPoint = new PointF(labelBitmap.getWidth()/2, labelBitmap.getHeight()/2);
 
 		// don't show the marker for population 0
@@ -147,7 +148,7 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 			labelStyle.fontSize = 90;
 			labelStyle.fillColor = 0xffff0000;
 		}
-    	
+
     	return labelStyle;
 	}
 	
@@ -164,7 +165,7 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 		mapInfo.hitTestingEnabled = true;
 		mapInfo.delegate = this;
 		mapView.addMapUsingMapInfo(mapInfo);
-		
+
 		// add markers
 		ReadPopulationData();
 		addMarkers(0);
@@ -175,7 +176,7 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 		animator.addUpdateListener(this);
 		animator.setRepeatCount(ValueAnimator.INFINITE);
 		animator.setStartDelay(1000);
-		//animator.start();
+		animator.start();
         
         // zoom to bounds
         if (bounds != null) {

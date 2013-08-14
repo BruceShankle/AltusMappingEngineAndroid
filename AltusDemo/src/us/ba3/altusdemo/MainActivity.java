@@ -133,13 +133,13 @@ public class MainActivity extends Activity {
 			@Override
 			public void engineReady(MapView mapView){
 				MainActivity.this._testManager.restartCurrentTest();
-				MainActivity.this.enableLocationLayer(_gpsSwitch.isChecked());
+				//MainActivity.this.enableLocationLayer(_gpsSwitch.isChecked());
 			}
 		});
 
 		mapView.setBackgroundColor(Color.GRAY);
 		layout.addView(mapView);
-
+		
 		//Create container layout for buttons
 		LinearLayout buttonRow = new LinearLayout(this);
 		buttonRow.setOrientation(LinearLayout.HORIZONTAL);

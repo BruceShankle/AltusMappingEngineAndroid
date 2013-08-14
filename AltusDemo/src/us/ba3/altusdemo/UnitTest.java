@@ -1,11 +1,17 @@
 package us.ba3.altusdemo;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import us.ba3.me.*;
 import us.ba3.me.markers.DynamicMarker;
 import us.ba3.me.markers.DynamicMarkerMapInfo;
 import us.ba3.me.styles.LabelStyle;
 import us.ba3.me.util.FontUtil;
 import us.ba3.me.ArrowPulse;
+import android.graphics.Color;
 import android.os.Handler;
+import android.util.Log;
 
 public class UnitTest extends METest {
 
@@ -114,10 +120,11 @@ public class UnitTest extends METest {
 	    }
 	};
 	
+	
 	@Override
 	protected void start() {
 		
-		runnable.run();
+		//runnable.run();
 		
 		// add map
 //        mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);
@@ -126,23 +133,28 @@ public class UnitTest extends METest {
 //        		
 		mapView.addInternetMap(name, "http://a.tiles.mapbox.com/v3/examples.map-4l7djmvo");
 		
-        TestDyanmicMarkers();
+        //TestDyanmicMarkers();
         
-        ArrowPulse pulse = new ArrowPulse();
-        pulse.name = "pulse";
-        pulse.location = new Location(60, -100);
-        mapView.addArrowPulse(pulse);
-        mapView.setArrowPulseLocation("pulse", new Location(50,-100), 10);
+//        ArrowPulse pulse = new ArrowPulse();
+//        pulse.name = "pulse";
+//        pulse.location = new Location(60, -100);
+//        mapView.addArrowPulse(pulse);
+//        mapView.setArrowPulseLocation("pulse", new Location(50,-100), 10);
+//        
+//        pulse.style = ArrowPulseStyle.ArrowOutwardPointingWithoutCircle;
+//		pulse.name = "pulse2";
+//		pulse.location = new Location(40, -100);
+//        mapView.addArrowPulse(pulse);
         
-        pulse.style = ArrowPulseStyle.ArrowOutwardPointingWithoutCircle;
-		pulse.name = "pulse2";
-		pulse.location = new Location(40, -100);
-        mapView.addArrowPulse(pulse);
-        
-		
+        ColorBar colors = new ColorBar();
+        colors.addColor(100, Color.WHITE);
+        colors.addColor(500, Color.RED);
+        colors.addColor(1000, Color.GREEN);
+        mapView.setTerrainColorBar(colors, Color.YELLOW);
+//        mapView.setDynamicColorBar(colors);
+//        mapView.setDynamicColorBarOffset(0);
+
 		mapView.setPanAcceleration(-0.5f);
-		//mapView.setPanVelocityScale(2);
-		//mapView.setP
 		mapView.setMaxVirtualMapParentSearchDepth(1);
         // zoom to bounds
         if (bounds != null) {

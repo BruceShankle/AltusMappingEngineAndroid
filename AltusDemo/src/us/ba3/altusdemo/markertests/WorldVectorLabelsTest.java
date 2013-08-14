@@ -2,6 +2,7 @@ package us.ba3.altusdemo.markertests;
 import java.io.File;
 import android.util.Log;
 import us.ba3.altusdemo.METest;
+import us.ba3.me.Location;
 import us.ba3.me.MapType;
 import us.ba3.me.markers.*;
 import us.ba3.me.util.*;
@@ -79,12 +80,25 @@ public class WorldVectorLabelsTest extends METest implements MarkerMapDelegate {
 			PointF geographicLocation,
 			PointF screenPoint,
 			PointF markerPoint){
+		
 		Log.w("WorldVectorLabelsTest","Marker was tapped on. uid:" + markerUid + 
 				" metaData:" + markerMetaData + 
 				" weight:" + markerWeight +
 				" location:" + geographicLocation.x + "," + geographicLocation.y +
 				" screenPoint:" + screenPoint.x + "," + screenPoint.y +
 				" markerPoint:" + markerPoint.x + "," + markerPoint.y);
+		
+		/*
+		 //Tests for various locaiton getters.
+		Log.w("WorldVectorLabelsTest", "Current center coordinate is:"+
+				this.mapView.getCenterCoordinate().longitude + ", " +
+				this.mapView.getCenterCoordinate().latitude + " Altitude:" +
+				this.mapView.getAltitude());
+		
+		Log.w("WorldVectorLabelsTest", this.mapView.getLocation3D().longitude + " " +
+		this.mapView.getLocation3D().latitude + " " +
+				this.mapView.getLocation3D().altitude);
+				*/
 	}
 	
 	public LabelStyle createCountryStyle() {
