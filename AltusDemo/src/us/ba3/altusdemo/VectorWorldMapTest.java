@@ -17,7 +17,7 @@ public class VectorWorldMapTest extends METest {
 		_sqliteFile = new File(mapPath + ".sqlite");
 		this.bounds = bounds;
 		
-		_labels = new WorldVectorLabelsTest("World Labels", testManager.getMapPath("Markers", "METoolCountriesStatesCities"));
+		_labels = new WorldVectorLabelsTest("Places", testManager.getMapPath("Markers", "Places"));
 	}
 	
 	protected void cachePng(String resourcePath, String cachedImageName){
@@ -63,7 +63,7 @@ public class VectorWorldMapTest extends METest {
 		cacheVectorMapTextures();
 		
 		_labels.start(this.mapView, this.context);
-        mapView.addMap(name, _sqliteFile.getAbsolutePath(), _mapFile.getAbsolutePath(), true);
+        mapView.addVectorMap(name, _sqliteFile.getAbsolutePath(), _mapFile.getAbsolutePath());
         
         // zoom to bounds
         if (bounds != null) {

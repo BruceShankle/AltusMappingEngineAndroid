@@ -8,11 +8,11 @@ public class RasterMapTest extends METest {
 	int zOrder;
 	
 	public RasterMapTest(String name, String mapPath, CoordinateBounds bounds) {
-		this(name, mapPath, bounds, 1.0f, 100);
+		this(name, mapPath, bounds, 1.0f, 2);
 	}
 	
 	public RasterMapTest(String name, String mapPath, CoordinateBounds bounds, float alpha) {
-		this(name, mapPath, bounds, alpha, 100);
+		this(name, mapPath, bounds, alpha, 2);
 	}
 	
 	public RasterMapTest(String name, String mapPath, CoordinateBounds bounds, float alpha, int zOrder) {

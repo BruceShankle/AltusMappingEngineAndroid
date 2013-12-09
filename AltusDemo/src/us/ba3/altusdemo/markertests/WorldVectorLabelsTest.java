@@ -34,11 +34,12 @@ public class WorldVectorLabelsTest extends METest implements MarkerMapDelegate {
 		//Add marker map
 		MarkerMapInfo mapInfo = new MarkerMapInfo();
 		mapInfo.name = this.name;
-		mapInfo.zOrder = 100;
+		mapInfo.zOrder = 200;
 		mapInfo.mapType = MapType.kMapTypeFileMarker;
 		mapInfo.sqliteFileName = _sqliteFile.getAbsolutePath();
 		mapInfo.markerMapDelegate = this;
 		mapInfo.hitTestingEnabled = true;
+		mapInfo.fadeEnabled = false;
 		mapInfo.markerImageLoadingStrategy = MarkerImageLoadingStrategy.kMarkerImageLoadingAsynchronous;
 		mapView.addMapUsingMapInfo(mapInfo);
 	}
@@ -50,20 +51,9 @@ public class WorldVectorLabelsTest extends METest implements MarkerMapDelegate {
 
 	@Override
 	public void updateMarkerInfo(MarkerInfo markerInfo, String mapName) {
-		String labelText = markerInfo.metaData.substring(1, markerInfo.metaData.length());
-		LabelStyle labelStyle = null;
-		if(markerInfo.metaData.startsWith("C")) {
-			labelStyle = _countryStyle;
-		}
-		if(markerInfo.metaData.startsWith("S")) {
-			labelStyle = _stateStyle;
-		}
-		if(markerInfo.metaData.startsWith("c")) {
-			labelStyle = _cityStyle;
-		}
 		
 		//Create a label bitmap
-		Bitmap labelBitmap = FontUtil.createLabel(labelText, labelStyle);
+		Bitmap labelBitmap = FontUtil.createLabel(markerInfo.metaData, _countryStyle);
 		
 		//Set the marker info
 		markerInfo.setImage(labelBitmap);
@@ -105,7 +95,7 @@ public class WorldVectorLabelsTest extends METest implements MarkerMapDelegate {
 		LabelStyle s = new LabelStyle();
 		s.fontName = "Arial";
 		s.fontStyle = Typeface.BOLD;
-		s.fontSize=17;
+		s.fontSize=20;
 		s.strokeVisible = true;
 		s.strokeColor = Color.WHITE;
 		s.fillColor = Color.BLACK;

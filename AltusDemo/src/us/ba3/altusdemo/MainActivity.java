@@ -72,35 +72,26 @@ public class MainActivity extends Activity {
 		earthZip.addArchiveFile(earthSqlite);
 		_assetManager.addDownloadableAsset(earthZip);
 
-		//World vector map.
-		/*targetFolder = "NewVector";
-		fileName = "WorldVector.zip";
-		fileSize = 19681630;
-		MEDownloadableAsset worldVectorZip2 = new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,true,fileSize);
-		MEFileAsset worldVectorMap2 = new MEFileAsset(targetFolder, "WorldVector.map", 15217604);
-		MEFileAsset worldVectorSqlite2 = new MEFileAsset(targetFolder, "WorldVector.sqlite", 916480);
-		worldVectorZip2.addArchiveFile(worldVectorMap2);
-		worldVectorZip2.addArchiveFile(worldVectorSqlite2);
-		_assetManager.addDownloadableAsset(worldVectorZip2);*/
-
-		//Apple style vector map of Houston
+		//Vector maps
 		targetFolder = "NewVector";
-		fileName = "Houston_Apple.zip";
-		fileSize = 8301788;
-		MEDownloadableAsset houstonAppleZip = new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,true,fileSize);
-		MEFileAsset houstonAppleMap = new MEFileAsset(targetFolder, "Houston_Apple.map", 13031356);
-		MEFileAsset houstonAppleSqlite = new MEFileAsset(targetFolder, "Houston_Apple.sqlite", 692224);
-		houstonAppleZip.addArchiveFile(houstonAppleMap);
-		houstonAppleZip.addArchiveFile(houstonAppleSqlite);
-		_assetManager.addDownloadableAsset(houstonAppleZip);
+		fileName = "World_Style2.zip";
+		fileSize = 13983612;
+		MEDownloadableAsset worldStyle2Zip = new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,true,fileSize);
+		MEFileAsset worldStyle2Map = new MEFileAsset(targetFolder, "World_Style2.map", 21207728);
+		MEFileAsset worldStyle2Sqlite = new MEFileAsset(targetFolder, "World_Style2.sqlite", 1574912);
+		worldStyle2Zip.addArchiveFile(worldStyle2Map);
+		worldStyle2Zip.addArchiveFile(worldStyle2Sqlite);
+		_assetManager.addDownloadableAsset(worldStyle2Zip);
 
 		//Labels for the vector maps
 		targetFolder = "Markers";
-		fileName = "METoolCountriesStatesCities.sqlite";
-		fileSize = 6422528;
-		_assetManager.addDownloadableAsset(
-				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
-
+		fileName = "Places.zip";
+		fileSize = 10732925;
+		MEDownloadableAsset placesZip = new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,true, fileSize);
+		MEFileAsset placesSqlite = new MEFileAsset(targetFolder,"Places.sqlite", 19482624);
+		placesZip.addArchiveFile(placesSqlite);
+		_assetManager.addDownloadableAsset(placesZip);
+		
 		//MBTiles map
 		targetFolder = "MBTiles";
 		fileName = "open-streets-dc-15.mbtiles";
