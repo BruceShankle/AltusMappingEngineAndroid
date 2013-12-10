@@ -12,7 +12,7 @@ public class MBTilesMapTest extends RasterMapTest {
 	protected void start() {
 		
 		//Add map
-		mapView.addMBTilesMap(name, mapPath, "grayGrid", ImageDataType.kImageDataTypePNG, false, zOrder);
+		mapView.addMBTilesMap(name, mapPath, "grayGrid", ImageDataType.kImageDataTypePNG, false, zOrder, MapLoadingStrategy.kHighestDetailOnly);
 		mapView.setMapAlpha(name, alpha);
 		
         // zoom to bounds
