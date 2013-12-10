@@ -3,6 +3,7 @@ package com.example.mbtiles;
 import java.io.File;
 import us.ba3.me.ImageDataType;
 import us.ba3.me.Location;
+import us.ba3.me.MapLoadingStrategy;
 import us.ba3.me.MapView;
 
 import android.os.Bundle;
@@ -27,13 +28,16 @@ public class MainActivity extends Activity {
 		
 		//Add the mb tiles map.
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
-		mapView.addMBTilesMap("DC", targetFileName, "grayGrid", ImageDataType.kImageDataTypePNG, false, 2);
+		
+		mapView.addMBTilesMap("DC", targetFileName, "grayGrid", ImageDataType.kImageDataTypePNG, false, 2,
+				MapLoadingStrategy.kLowestDetailFirst);
 
-        // Zoom into washington D.C.
         	mapView.setLocationThatFitsCoordinates(
         			new Location(38.872325,-77.102248),
         			new Location(38.920421,-76.965606),
         			0, 0);
+        	
+        	
         	
 	}
 
