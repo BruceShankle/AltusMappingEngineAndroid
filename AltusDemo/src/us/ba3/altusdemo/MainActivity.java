@@ -119,6 +119,9 @@ public class MainActivity extends Activity {
 		//Add map view.
 		mapView = new MapView(getApplication());
 
+		//If you want to disable the BA3 watermark, set your license key.
+		//mapView.setLicenseKey("Your license key here");
+		
 		//Add a ready listener.
 		mapView.addReadyListener(new ReadyListener(){
 			@Override
