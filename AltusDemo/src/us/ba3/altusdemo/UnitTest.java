@@ -131,7 +131,7 @@ public class UnitTest extends METest {
 //        mapView.setMapAlpha(name, alpha);
 //        mapView.setMapZOrder(name, zOrder);
 //        		
-		mapView.addInternetMap(name, "http://a.tiles.mapbox.com/v3/examples.map-4l7djmvo");
+		//mapView.addInternetMap(name, "http://a.tiles.mapbox.com/v3/examples.map-4l7djmvo");
 		
         //TestDyanmicMarkers();
         

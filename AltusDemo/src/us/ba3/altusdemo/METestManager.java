@@ -27,6 +27,10 @@ class Locations {
 	public static final CoordinateBounds DCBounds = new CoordinateBounds(
 			new Location(38.848,-77.1127),
 			new Location(38.933,-76.9665));
+	
+	public static final CoordinateBounds WindsBounds = new CoordinateBounds(
+			new Location(-180,-85),
+			new Location(180,85));
 			
 }
 
@@ -56,6 +60,8 @@ public class METestManager {
 		testList.add(new DynamicMarkerTest("Markers", getMapPath("BaseMap", "Earth"), Locations.USBounds));
 		
 		testList.add(new TileProviderTest("Tile Provider"));
+		testList.add(new TiledVectorMapTest("Tiled Vector Map"));
+		testList.add(new InternetVectorMap("Internet Vector Map", Locations.HoustonBounds, this));  
 		testList.add(new WorldVectorLabelsTest("Labels", getMapPath("Markers","Places")));
 		
 		

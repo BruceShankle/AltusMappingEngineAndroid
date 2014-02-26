@@ -9,7 +9,7 @@ public class MapQuestTest extends METest {
 	
 	@Override
 	protected void start() {
-		mapView.addInternetMap(this.name,"http://otile1.mqcdn.com/tiles/1.0.0/osm");
+		mapView.addInternetMap(this.name,"http://otile1.mqcdn.com/tiles/1.0.0/osm", "jpg");
 	}
 
 	@Override

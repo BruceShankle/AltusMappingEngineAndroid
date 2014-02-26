@@ -156,7 +156,7 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 	protected void start() {
 				
 		// add map
-		mapView.addInternetMap(name, "http://a.tiles.mapbox.com/v3/graycat29.map-1yr1le55");
+		mapView.addInternetMap(name, "http://a.tiles.mapbox.com/v3/graycat29.map-1yr1le55","png");
 		
     	//Add dynamic marker layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();

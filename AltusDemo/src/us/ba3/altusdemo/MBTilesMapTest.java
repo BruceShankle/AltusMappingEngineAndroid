@@ -1,11 +1,12 @@
 package us.ba3.altusdemo;
 import us.ba3.me.*;
-
+import android.util.Log;
 
 public class MBTilesMapTest extends RasterMapTest {
 
 	public MBTilesMapTest(String name, String mapPath, CoordinateBounds bounds) {
 		super(name, mapPath, bounds);
+		
 	}
 	
 	@Override
