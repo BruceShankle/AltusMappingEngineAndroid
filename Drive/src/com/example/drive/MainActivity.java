@@ -33,7 +33,7 @@ public class MainActivity extends Activity implements Runnable {
 
 		//Get the map view and add a street map.
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
-		mapView.addInternetMap("MapQuest Streets","http://otile1.mqcdn.com/tiles/1.0.0/osm");
+		mapView.addInternetMap("MapQuest Streets","http://otile1.mqcdn.com/tiles/1.0.0/osm", "jpg");
 
 		//		//Add vector layer
 		VectorMapInfo vectorMapInfo = new VectorMapInfo();

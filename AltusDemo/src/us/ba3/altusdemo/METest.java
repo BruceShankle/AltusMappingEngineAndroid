@@ -3,6 +3,9 @@ import android.util.Log;
 import java.io.*;
 import us.ba3.me.*;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.google.common.io.*;
 
@@ -51,6 +54,21 @@ public abstract class METest {
 		}
 		return "";
  	}
+	
+	public Bitmap getBitmapFromAsset(String strName) {
+	    AssetManager assetManager = this.context.getAssets();
+
+	    InputStream istr;
+	    Bitmap bitmap = null;
+	    try {
+	        istr = assetManager.open(strName);
+	        bitmap = BitmapFactory.decodeStream(istr);
+	    } catch (IOException e) {
+	        return null;
+	    }
+
+	    return bitmap;
+	}
 	
 	public boolean requiresDownloadableAssets() {
 		return false;
