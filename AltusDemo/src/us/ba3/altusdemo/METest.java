@@ -24,6 +24,9 @@ public abstract class METest {
 	{
 		this.mapView = mapView;
 		this.context = context;
+		//Show version information
+		Log.w("Altus Version Tag", mapView.getVersionTag());
+		Log.w("Altus Version Hash", mapView.getVersionHash());
 		start();
 	}
 	
