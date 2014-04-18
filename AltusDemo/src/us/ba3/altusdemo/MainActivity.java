@@ -24,7 +24,7 @@ import android.app.*;
 import java.io.*;
 
 public class MainActivity extends Activity {	
-	protected MapView mapView;
+	protected MyMapView mapView;
 	protected METestManager _testManager;
 	protected Spinner _mapSpinner;
 	protected DemoManager _demoManager;
@@ -116,8 +116,11 @@ public class MainActivity extends Activity {
 
 		RelativeLayout layout = new RelativeLayout(this);
 
+		//If you want to override cache size, you would do that here like so:
+		//MapView.CACHESIZE = 90000000;
+		
 		//Add map view.
-		mapView = new MapView(getApplication());
+		mapView = new MyMapView(getApplication());
 		
 		//If you want to disable the BA3 watermark, set your license key.
 		//mapView.setLicenseKey("your license key here");
