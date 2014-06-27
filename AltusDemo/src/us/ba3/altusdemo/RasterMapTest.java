@@ -29,7 +29,7 @@ public class RasterMapTest extends METest {
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		
 		// add map
         mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);

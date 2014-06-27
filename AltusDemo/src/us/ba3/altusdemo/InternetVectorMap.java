@@ -210,7 +210,7 @@ public class InternetVectorMap extends METest implements TileProvider {
 	}
 
 	@Override
-	protected void start() {
+	public void start() {
 		
 		//Zoom to bounds
         mapView.setLocationThatFitsCoordinates(this.startingBounds.min, this.startingBounds.max, 0, 0, 0.5);

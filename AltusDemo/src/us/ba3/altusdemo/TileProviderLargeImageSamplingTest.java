@@ -20,7 +20,7 @@ public class TileProviderLargeImageSamplingTest extends RasterMapTest implements
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		//Add virtual map
 		VirtualMapInfo mapInfo = new VirtualMapInfo();
 		mapInfo.name = name;
@@ -62,7 +62,7 @@ public class TileProviderLargeImageSamplingTest extends RasterMapTest implements
 			
 			java.util.Random randomGenerator = new java.util.Random((int)minX);
 			
-			//19200 × 9600
+			//19200��������9600
 			double dx = randomGenerator.nextDouble();
 			double dy = randomGenerator.nextDouble();
 			int x = (int)(dx * 19200-256);

@@ -27,7 +27,7 @@ public class MapComboTest extends METest {
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		vectorTest.start(mapView, context);
 		parkMapTest.start(mapView, context);
 	}

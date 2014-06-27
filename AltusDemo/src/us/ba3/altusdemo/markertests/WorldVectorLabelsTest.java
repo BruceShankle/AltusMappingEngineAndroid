@@ -30,7 +30,7 @@ public class WorldVectorLabelsTest extends METest implements MarkerMapDelegate {
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		//Add marker map
 		MarkerMapInfo mapInfo = new MarkerMapInfo();
 		mapInfo.name = this.name;

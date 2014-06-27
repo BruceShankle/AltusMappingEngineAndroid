@@ -57,7 +57,7 @@ public class VectorWorldMapTest extends METest {
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		
 		
 		cacheVectorMapTextures();

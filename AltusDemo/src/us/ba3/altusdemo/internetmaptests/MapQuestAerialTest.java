@@ -8,7 +8,7 @@ public class MapQuestAerialTest extends METest {
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		mapView.addInternetMap(this.name,"http://otile1.mqcdn.com/tiles/1.0.0/sat", "jpg");
 	}
 

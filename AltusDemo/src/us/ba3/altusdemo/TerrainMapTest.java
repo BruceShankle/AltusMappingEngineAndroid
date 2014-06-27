@@ -24,7 +24,7 @@ public class TerrainMapTest extends METest {
 	
 	
 	@Override
-	protected void start() {
+	public void start() {
 	
 		//Set terrain color bar
 		ColorBar colorBar = new ColorBar();

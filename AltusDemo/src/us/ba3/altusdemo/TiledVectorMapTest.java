@@ -19,7 +19,7 @@
 		}
 	
 		@Override
-		protected void start() {
+		public void start() {
 			VirtualMapInfo mapInfo = new VirtualMapInfo();
 			mapInfo.name = name;
 			mapInfo.zOrder = 100;

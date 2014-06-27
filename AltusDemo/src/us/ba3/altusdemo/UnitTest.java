@@ -122,7 +122,7 @@ public class UnitTest extends METest {
 	
 	
 	@Override
-	protected void start() {
+	public void start() {
 		
 		//runnable.run();
 		

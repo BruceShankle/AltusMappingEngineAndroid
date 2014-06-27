@@ -15,7 +15,7 @@ public class TileProviderTest extends METest implements TileProvider {
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		
 		VirtualMapInfo mapInfo = new VirtualMapInfo();
 		mapInfo.name = name;

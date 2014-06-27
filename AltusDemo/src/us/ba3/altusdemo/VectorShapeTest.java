@@ -66,7 +66,7 @@ public class VectorShapeTest extends METest implements ValueAnimator.AnimatorUpd
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		// add a base raster map
         mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);
         mapView.setMapAlpha(name, alpha);

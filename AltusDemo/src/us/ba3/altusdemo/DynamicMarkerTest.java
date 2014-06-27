@@ -153,7 +153,7 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 				
 		// add map
 		mapView.addInternetMap(name, "http://a.tiles.mapbox.com/v3/graycat29.map-1yr1le55","png");

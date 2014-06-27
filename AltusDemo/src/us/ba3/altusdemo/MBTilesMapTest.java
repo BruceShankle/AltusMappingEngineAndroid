@@ -10,7 +10,7 @@ public class MBTilesMapTest extends RasterMapTest {
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		
 		//Add map
 		mapView.addMBTilesMap(name, mapPath, "grayGrid", ImageDataType.kImageDataTypePNG, false, zOrder, MapLoadingStrategy.kHighestDetailOnly);

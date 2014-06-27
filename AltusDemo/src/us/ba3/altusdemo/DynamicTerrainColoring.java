@@ -70,7 +70,7 @@ public class DynamicTerrainColoring extends METest {
 
 
 	@Override
-	protected void start() {
+	public void start() {
 		this.addNormalTerrainMap();
 		this.addDynamicTerrainMap();
 		this.interval = 0.1f;

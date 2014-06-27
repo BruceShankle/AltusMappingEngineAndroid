@@ -83,7 +83,7 @@ public abstract class METest implements Runnable {
 		return false;
 	}
 	
-	protected abstract void start();
+	public abstract void start();
 	public abstract void stop();
 	
 	///////////////////////////////////////////

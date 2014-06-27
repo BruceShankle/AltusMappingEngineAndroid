@@ -27,7 +27,7 @@ public class InMemoryClusteredMarkersTest extends METest implements MarkerMapDel
 	}
 	
 	@Override
-	protected void start() {
+	public void start() {
 		
 		//Create some markers to cluster
 		List<MarkerInfo> markers = new ArrayList<MarkerInfo>();
