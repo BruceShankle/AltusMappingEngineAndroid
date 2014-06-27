@@ -1,6 +1,10 @@
 package us.ba3.altusdemo;
 import android.util.Log;
+
 import java.io.*;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import us.ba3.me.*;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -9,12 +13,14 @@ import android.graphics.BitmapFactory;
 
 import com.google.common.io.*;
 
-public abstract class METest {
+public abstract class METest implements Runnable {
 	
 	protected String name;
 	protected MapView mapView;
 	protected Context context;
 	public static String internalFilesPath;
+	protected ScheduledThreadPoolExecutor threadPool;
+	protected float interval = 1.0f;
 	
 	public String getName() { 
 		return name; 
@@ -79,4 +85,25 @@ public abstract class METest {
 	
 	protected abstract void start();
 	public abstract void stop();
+	
+	///////////////////////////////////////////
+	//Timer system
+	public void startTimer(){
+		threadPool = new ScheduledThreadPoolExecutor(1);
+		int millis = (int)(this.interval * 1000);
+		threadPool.scheduleAtFixedRate(this, 0, millis, TimeUnit.MILLISECONDS);
+	}
+
+	public void stopTimer(){
+		threadPool.shutdown();
+	}
+	
+	public void run() {
+		timerTick();
+	}
+	
+	public void timerTick(){
+		Log.w(this.name, "timerTick(): Please override.");
+	}
+	
 }

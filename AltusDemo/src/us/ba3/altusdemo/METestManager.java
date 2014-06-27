@@ -55,7 +55,7 @@ public class METestManager {
 		testList.add(new RasterMapTest("Sectional", getMapPath("Sectional","Charlotte_North"), Locations.CharlotteBounds));
 		testList.add(new RasterMapTest("Park Map", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
 		testList.add(new TerrainMapTest("Terrain", getMapPath("BaseMap","Earth"), Locations.USBounds));
-		//testList.add(new TerrainMapTest("Terrain", getMapPath("BaseMap","Earth"), Locations.USBounds));
+		testList.add(new DynamicTerrainColoring("Dynamic Terrain", getMapPath("BaseMap","Earth"), Locations.USBounds));
 		testList.add(new MBTilesMapTest("MBTiles", getMapPath("MBTiles","open-streets-dc-15.mbtiles"), Locations.DCBounds));
 		testList.add(new VectorShapeTest("Shapes", getMapPath("National_Parks","Acadia"), Locations.AcadiaBounds));
 		testList.add(new DynamicMarkerTest("Markers", getMapPath("BaseMap", "Earth"), Locations.USBounds));
