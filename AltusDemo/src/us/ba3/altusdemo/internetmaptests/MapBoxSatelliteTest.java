@@ -9,7 +9,14 @@ public class MapBoxSatelliteTest extends METest {
 	
 	@Override
 	public void start() {
-		mapView.addInternetMap(this.name,"http://d.tiles.mapbox.com/v3/examples.map-qfyrx5r8", "jpg");
+		mapView.addInternetMap(this.name,
+				"http://{s}.tiles.mapbox.com/v3/dxjacob.ho6k3ag9/{z}/{x}/{y}.jpg",
+				"a,b,c,d",
+				20,
+				2,
+				2, //Workers
+				true,
+				false);
 	}
 
 	@Override

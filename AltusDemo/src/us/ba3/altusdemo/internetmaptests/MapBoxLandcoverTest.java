@@ -10,7 +10,7 @@ public class MapBoxLandcoverTest extends METest {
 	
 	@Override
 	public void start() {
-		mapView.addInternetMap(this.name,"http://a.tiles.mapbox.com/v3/examples.map-vyofok3q", "png");
+		mapView.addInternetMap(this.name,"http://a.tiles.mapbox.com/v3/dxjacob.map-s5qr595q", "png");
 	}
 
 	@Override
