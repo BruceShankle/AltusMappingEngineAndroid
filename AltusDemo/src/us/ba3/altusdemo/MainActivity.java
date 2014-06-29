@@ -117,7 +117,7 @@ public class MainActivity extends Activity {
 		RelativeLayout layout = new RelativeLayout(this);
 
 		//If you want to override cache size, you would do that here like so:
-		//MapView.CACHESIZE = 90000000;
+		//MapView.CACHESIZE = 90000000; //Bytes
 		
 		//Add map view.
 		mapView = new MyMapView(getApplication());

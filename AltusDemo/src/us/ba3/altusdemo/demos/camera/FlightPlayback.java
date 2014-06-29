@@ -131,6 +131,9 @@ public class FlightPlayback extends DemoWithTimer {
 		meVectorMapInfo.zOrder = 800;
 		this._mapView.addMapUsingMapInfo(meVectorMapInfo);
 		
+		//Set the tesselation threshold to 40 nautical miles
+		this._mapView.setTesselationThresholdForMap("flightpath", 40);
+		
 		//Create an array of points for the flight path.
 		ArrayList<Location> pointList = new ArrayList<Location>();
 		for(FlightSample sample : FlightPlayback.getFlightSamples()){
@@ -147,6 +150,16 @@ public class FlightPlayback extends DemoWithTimer {
 		//Add the line
 		Location[] pointArray = pointList.toArray(new Location[pointList.size()]);
 		this._mapView.addLineToVectorMap("flightpath", pointArray, lineStyle);
+		
+		//Add a long line from SFO to RDU
+		this._mapView.setTesselationThresholdForMap("flightpath", 40);
+		lineStyle.strokeColor = Color.RED;
+		lineStyle.strokeWidth = 8;
+		ArrayList<Location> pointList2 = new ArrayList<Location>();
+		pointList2.add(new Location(35.908505, -78.666412));
+		pointList2.add(new Location(47.618823, -122.314558));
+		Location[] pointArray2 = pointList2.toArray(new Location[pointList2.size()]);
+		this._mapView.addDynamicLineToVectorMap("flightpath", "SEA-RDU", pointArray2, lineStyle);
 	}
 	
 	public void removeFlightPath(){
