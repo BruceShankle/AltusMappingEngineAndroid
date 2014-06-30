@@ -11,12 +11,12 @@ public class MapBoxLandcoverTest extends METest {
 	@Override
 	public void start() {
 		mapView.addInternetMap(this.name,
-				"http://{s}.tiles.mapbox.com/v3/dxjacob.map-s5qr595q/{z}/{x}/{y}.jpg",
+				"http://{s}.tiles.mapbox.com/v3/dxjacob.map-s5qr595q/{z}/{x}/{y}.png",
 				"a,b,c,d", 	//Subdomains
 				20,			//Max Level
 				2,			//zOrder
 				3,			//Number of simultaneous downloads
-				false,		//Use cache
+				true,		//Use cache
 				false		//No alpha
 				);
 	}
