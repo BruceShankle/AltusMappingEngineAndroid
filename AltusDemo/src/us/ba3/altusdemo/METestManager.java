@@ -1,6 +1,8 @@
 package us.ba3.altusdemo;
 import us.ba3.altusdemo.internetmaptests.*;
 import us.ba3.altusdemo.markertests.*;
+import us.ba3.altusdemo.tileworkertests.BitmapTileWorkerTest;
+
 import java.io.File;
 import java.util.ArrayList;
 import us.ba3.me.*;
@@ -65,7 +67,7 @@ public class METestManager {
 		testList.add(new TiledVectorMapTest("Tiled Vector Map"));
 		testList.add(new InternetVectorMap("Internet Vector Map", Locations.HoustonBounds, this));  
 		testList.add(new WorldVectorLabelsTest("Labels", getMapPath("Markers","Places")));
-		
+		testList.add(new BitmapTileWorkerTest());
 		
 	}
 
