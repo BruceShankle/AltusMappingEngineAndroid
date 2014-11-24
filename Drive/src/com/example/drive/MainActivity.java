@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements Runnable {
 		//		//Add vector layer
 		VectorMapInfo vectorMapInfo = new VectorMapInfo();
 		vectorMapInfo.name = "route";
-		vectorMapInfo.zOrder = 2;
+		vectorMapInfo.zOrder = 3;
 		vectorMapInfo.alpha = 0.75f;
 		mapView.addMapUsingMapInfo(vectorMapInfo);
 
@@ -147,7 +147,7 @@ public class MainActivity extends Activity implements Runnable {
 		beacon.repeatDelay = 0;
 		beacon.fade = true;
 		beacon.fadeDelay = 1;
-		beacon.zOrder = 4;
+		beacon.zOrder = 5;
 		beacon.lineStyle.strokeColor = Color.WHITE;
 		beacon.lineStyle.outlineColor = Color.rgb(0, 255, 0);
 		beacon.lineStyle.outlineWidth = 4;
@@ -176,7 +176,7 @@ public class MainActivity extends Activity implements Runnable {
 		//Add dynamic marker map layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
 		mapInfo.name = "Markers";
-		mapInfo.zOrder = 3;
+		mapInfo.zOrder = 5;
 		mapView.addMapUsingMapInfo(mapInfo);
 
 		//Add a markers

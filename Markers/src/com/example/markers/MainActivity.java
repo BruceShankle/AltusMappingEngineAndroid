@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 		//Add dynamic marker map layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
 		mapInfo.name = "Markers";
-		mapInfo.zOrder = 2;
+		mapInfo.zOrder = 3;
 		mapView.addMapUsingMapInfo(mapInfo);
 		
 		//Add a marker

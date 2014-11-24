@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
 
 		//Get the map view and add a street map.
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
+		
 		mapView.addInternetMap("MapQuest",
 				"http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg",
 				"", 		//Subdomains
@@ -35,9 +36,10 @@ public class MainActivity extends Activity {
 		//Add vector layer
 		VectorMapInfo vectorMapInfo = new VectorMapInfo();
 		vectorMapInfo.name = "route";
-		vectorMapInfo.zOrder = 2;
+		vectorMapInfo.zOrder = 3;
 		vectorMapInfo.alpha = 0.75f;
 		mapView.addMapUsingMapInfo(vectorMapInfo);
+		mapView.setTesselationThresholdForMap("route", 10);
 
 		//Create a style for the line
 		LineStyle lineStyle = new LineStyle();
@@ -74,7 +76,7 @@ public class MainActivity extends Activity {
 		//Add dynamic marker map layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
 		mapInfo.name = "Markers";
-		mapInfo.zOrder = 3;
+		mapInfo.zOrder = 5;
 		mapView.addMapUsingMapInfo(mapInfo);
 
 		//Add a markers

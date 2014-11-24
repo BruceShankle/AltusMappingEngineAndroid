@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import us.ba3.me.*;
 import android.content.Context;
 import android.util.Log;
+import us.ba3.altusdemo.tileworkertests.*;
 
 class Locations {
 	public static final CoordinateBounds USBounds = new CoordinateBounds(
@@ -45,10 +46,12 @@ public class METestManager {
 		this.mapView = mapView;
 		this.context = context;
 		testList = new ArrayList<METest>();
+		
 		testList.add(new MapBoxSatelliteTest());
 		testList.add(new MapQuestAerialTest());
 		testList.add(new MapBoxLandcoverTest());
 		testList.add(new MapQuestTest());
+		testList.add(new BitmapTileWorkerTest());
 		
 		//testList.add(new VectorWorldMapTest("World Vector", getMapPath("NewVector","WorldVector"), Locations.USBounds, this));
 		testList.add(new LocationAPITest("Location API"));
