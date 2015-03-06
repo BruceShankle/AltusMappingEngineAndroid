@@ -1,17 +1,12 @@
 package us.ba3.altusdemo;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import us.ba3.me.*;
+import us.ba3.me.ColorBar;
+import us.ba3.me.CoordinateBounds;
+import us.ba3.me.Location;
 import us.ba3.me.markers.DynamicMarker;
 import us.ba3.me.markers.DynamicMarkerMapInfo;
 import us.ba3.me.styles.LabelStyle;
 import us.ba3.me.util.FontUtil;
-import us.ba3.me.ArrowPulse;
 import android.graphics.Color;
-import android.os.Handler;
-import android.util.Log;
 
 public class UnitTest extends METest {
 
@@ -103,8 +98,8 @@ public class UnitTest extends METest {
 		mapView.removeArrowPulse("pulse");
 	}
 	
-	private Handler handler = new Handler();
-	private Runnable runnable = new Runnable() 
+	//private Handler handler = new Handler();
+/*	private Runnable runnable = new Runnable() 
 	{
 	    public void run() 
 	    {
@@ -119,7 +114,7 @@ public class UnitTest extends METest {
 	         handler.postDelayed(this, 1000);
 	    }
 	};
-	
+*/	
 	
 	@Override
 	public void start() {
@@ -166,7 +161,7 @@ public class UnitTest extends METest {
 	public void stop() {
 		mapView.removeMap(name, true);
 		mapView.removeMap("marker", true);
-		mapView.setMaxTileRenderSize(380);
+		mapView.setTilePointSize(380);
 		mapView.setTileLevelBias(1);
 		mapView.setPanVelocityScale(1);
 		mapView.setPanAcceleration(-10.0f);

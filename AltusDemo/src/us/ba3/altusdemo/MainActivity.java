@@ -1,27 +1,42 @@
 package us.ba3.altusdemo;
-import us.ba3.altusdemo.demos.*;
-import com.google.common.io.ByteStreams;
+import java.io.IOException;
+import java.io.InputStream;
 
-import us.ba3.altusdemo.assetmanagement.*;
-import us.ba3.me.*;
-import us.ba3.me.markers.*;
-import us.ba3.me.util.*;
-import android.os.Bundle;
+import us.ba3.altusdemo.assetmanagement.MEAssetManager;
+import us.ba3.altusdemo.assetmanagement.MEDownloadableAsset;
+import us.ba3.altusdemo.assetmanagement.MEFileAsset;
+import us.ba3.altusdemo.demos.DemoManager;
+import us.ba3.me.LightingType;
+import us.ba3.me.Location;
+import us.ba3.me.LocationType;
+import us.ba3.me.MapView;
+import us.ba3.me.ReadyListener;
+import us.ba3.me.util.FontUtil;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
-import android.widget.AdapterView.*;
-import android.graphics.*;
-import android.content.res.*;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.location.LocationManager;
-import android.content.*;
-import android.provider.*;
-import android.app.*;
-import java.io.*;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {	
 	protected MyMapView mapView;
@@ -30,37 +45,39 @@ public class MainActivity extends Activity {
 	protected DemoManager _demoManager;
 	protected Spinner _demoSpinner;
 	protected MEAssetManager _assetManager;
-	protected Switch _gpsSwitch;
 
 	//Set up downloadable assets
 	protected void setupAssets() {
+
+		Log.e("External files dir",getExternalFilesDir(null).toString());
+
+
 		_assetManager = new MEAssetManager(this);
 
 		String mapServerURL = getString(R.string.mapserver_url);
 
-		//National park map
-		String targetFolder = "National_Parks";
-		String fileName = "Acadia.map";
-		long fileSize = 4202689;
-		_assetManager.addDownloadableAsset(
-				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
-		fileName = "Acadia.sqlite";
-		fileSize = 57344;
+		//Night map package
+		String targetFolder = "PackagedMaps";
+		String fileName = "Night.sqlite";
+		long fileSize = 5308416;
 		_assetManager.addDownloadableAsset(
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
 
-		//FAA sectional
-		targetFolder = "Sectional";
-		fileName = "Charlotte_North.map";
-		fileSize = 49648601;
+		//Earth, terrain, png
+		fileSize = 209147904;
+		fileName = "TerrainPng.sqlite";
 		_assetManager.addDownloadableAsset(
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
-		fileName = "Charlotte_North.sqlite";
-		fileSize = 99328;
+
+		//Places.sqlite
+		fileSize = 19246080;
+		targetFolder = "MarkerMaps";
+		fileName = "Places.sqlite";
 		_assetManager.addDownloadableAsset(
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
 
 		//Earth terrain map.
+		/*
 		mapServerURL += "android/";
 		targetFolder = "BaseMap";
 		fileName = "Earth.zip";
@@ -91,21 +108,22 @@ public class MainActivity extends Activity {
 		MEFileAsset placesSqlite = new MEFileAsset(targetFolder,"Places.sqlite", 19482624);
 		placesZip.addArchiveFile(placesSqlite);
 		_assetManager.addDownloadableAsset(placesZip);
-		
+
 		//MBTiles map
 		targetFolder = "MBTiles";
 		fileName = "open-streets-dc-15.mbtiles";
 		fileSize = 6032384;
 		_assetManager.addDownloadableAsset(
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
-
+		 */
 		_assetManager.validateAssets();
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-		this.setTitle("BA3 Altus Mapping Engine Demo - www.ba3.us");
+		//Set title
+		this.setTitle("Altus Mapping Engine 2.0 - www.ba3.us");
 		super.onCreate(savedInstanceState);
 
 		//Set internal files path for tests
@@ -118,28 +136,35 @@ public class MainActivity extends Activity {
 
 		//If you want to override cache size, you would do that here like so:
 		//MapView.CACHESIZE = 90000000; //Bytes
-		
+
 		//Add map view.
 		mapView = new MyMapView(getApplication());
-		
+
 		//If you want to disable the BA3 watermark, set your license key.
-		//mapView.setLicenseKey("your license key here");
-		
+		//mapView.setLicenseKey("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA");
+
+		//Set lighting type to classic
+		mapView.setLightingType(LightingType.kLightingTypeClassic);
+
+		//Set sun relative to observer
+		mapView.setSunLocation(new Location(0,0), LocationType.kLocationTypeRelative);
+
 		//Add a ready listener.
 		mapView.addReadyListener(new ReadyListener(){
 			@Override
 			public void engineReady(MapView mapView){
 				MainActivity.this._testManager.restartCurrentTest();
-				//MainActivity.this.enableLocationLayer(_gpsSwitch.isChecked());
 			}
 		});
 
-		mapView.setBackgroundColor(Color.GRAY);
+		mapView.setBackgroundColor(Color.BLACK);
 		layout.addView(mapView);
-		
+
 		//Create container layout for buttons
+		//GridLayout grid = new GridLayout(this);
+		//grid.add	
 		LinearLayout buttonRow = new LinearLayout(this);
-		buttonRow.setOrientation(LinearLayout.HORIZONTAL);
+		buttonRow.setOrientation(LinearLayout.VERTICAL);
 		layout.addView(buttonRow);
 
 		//Create test manager and get test names
@@ -155,6 +180,7 @@ public class MainActivity extends Activity {
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				// get name of selected item
 				TextView view = (TextView)selectedItemView;
+				view.setEnabled(false);
 				startTest(view.getText().toString());
 			}
 
@@ -165,23 +191,8 @@ public class MainActivity extends Activity {
 		});
 		buttonRow.addView(_mapSpinner);
 
-		//Add switch to toggle GPS on / off
-		/*
-		_gpsSwitch = new Switch(this);
-		boolean gpsAvailable = locationServicesAvailable();
-		_gpsSwitch.setEnabled(gpsAvailable);
-		_gpsSwitch.setText("GPS");
-		_gpsSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				MainActivity.this.enableLocationLayer(_gpsSwitch.isChecked());
-			}
-		});
-		buttonRow.addView(_gpsSwitch);*/
-
 		//Create and add a spinner populated by demo names
-		_demoManager = new DemoManager(mapView, getApplication());
+		_demoManager = new DemoManager(mapView, getApplication(), buttonRow);
 		final String demoNames[] = _demoManager.getDemoNames();
 		_demoSpinner = new Spinner(this);
 		ArrayAdapter<String> demoSpinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, demoNames);
@@ -201,8 +212,6 @@ public class MainActivity extends Activity {
 		});
 		buttonRow.addView(_demoSpinner);
 
-		//Add another spinner for various tests
-
 		//Initialize utilities
 		FontUtil.setContext(this);
 
@@ -210,12 +219,9 @@ public class MainActivity extends Activity {
 
 		//Start first test.
 		_mapSpinner.setSelection(1);
-
-		//Ask user to turn on GPS
-		/*
-		if(!gpsAvailable){
-			promptToEnableLocationServices();
-		}*/
+		
+		//Run unit tests
+		MathUnitTests.RunTests();
 	}
 
 	protected boolean locationServicesAvailable(){
@@ -284,7 +290,47 @@ public class MainActivity extends Activity {
 
 	@Override protected void onResume() {
 		super.onResume();
-		//_gpsSwitch.setEnabled(this.locationServicesAvailable());
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+
+		//Change lighting type
+		case R.id.action_realistic_lighting:
+			this.mapView.setLightingType(LightingType.kLightingTypeRealistic);
+			return true;
+		case R.id.action_classic_lighting:
+			this.mapView.setLightingType(LightingType.kLightingTypeClassic);
+			return true;
+
+			//Toggle sun image
+		case R.id.sun_image_on:
+			this.mapView.setSunImageEnabled(true);
+			return true;
+		case R.id.sun_image_off:
+			this.mapView.setSunImageEnabled(false);
+			return true;
+
+		case R.id.zoom_out:
+			this.mapView.performZoomOut();
+			return true;
+		case R.id.zoom_in:
+			this.mapView.performZoomIn();
+			return true;
+			
+		case R.id.zoom_enabled:
+			this.mapView.setZoomEnabled(true);
+			return true;
+		case R.id.zoom_disabled:
+			this.mapView.setZoomEnabled(false);
+			return true;
+
+
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
@@ -307,57 +353,4 @@ public class MainActivity extends Activity {
 		}
 		return bitmap;
 	}
-
-	public void enableLocationLayer(boolean enabled) {
-
-		String mapName = "CurrentLocation";
-		String imagePath = "images/bluedot.png";
-		if(enabled){
-
-			//_meMapView.removeAllMaps(true);
-
-			//Cache blue dot marker image.
-			try{
-				byte pngData[]=ByteStreams.toByteArray(getAssets().open(imagePath));
-				mapView.addCachedPngImage("bluedot", pngData, false);
-			}
-			catch(Exception ex){
-				Log.w("BUG", ex.getMessage());
-				return;
-			}
-
-			//Add dynamic marker layer
-			DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
-			mapInfo.zOrder = 1000;
-			mapInfo.name = mapName;
-			mapInfo.hitTestingEnabled = false;
-			mapView.addMapUsingMapInfo(mapInfo);
-
-			//Add dynamic marker
-			DynamicMarker marker = new DynamicMarker();
-			marker.name = "bluedot";
-			//marker.cachedImageName = "bluedot";
-			marker.location = new Location(35.7719, -78.6389);
-			marker.anchorPoint.x = 12;
-			marker.anchorPoint.y = 12;
-			marker.setImage(getBitmapAsset(imagePath), false);
-			mapView.addDynamicMarkerToMap(mapName, marker);
-
-			//Add animated vector circle
-			HaloPulse c = new HaloPulse();
-			c.name = "locationRing";
-			c.location = marker.location;
-			c.zOrder = 999;
-			c.lineStyle.strokeColor = Color.WHITE;
-			c.lineStyle.outlineColor = Color.rgb(30, 144, 255);
-			c.lineStyle.outlineWidth = 4;
-			mapView.addHaloPulse(c);
-
-		}
-		else{
-			mapView.removeMap(mapName, false);
-			mapView.removeHaloPulse("locationRing");
-		}
-	}
-
 }

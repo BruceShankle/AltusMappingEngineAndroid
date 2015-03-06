@@ -13,8 +13,10 @@ public class MainActivity extends Activity {
 
 		//Get the map view and add a map.
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
-		mapView.addInternetMap("MapQuest Aerial",
+		mapView.addStreamingRasterMap("MapQuest Aerial",
 				"http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg",
+				"", //North tiles
+				"", //South tiles
 				"", 		//Subdomains
 				20,			//Max Level
 				2,			//zOrder

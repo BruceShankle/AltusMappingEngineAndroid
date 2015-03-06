@@ -1,8 +1,7 @@
 package us.ba3.altusdemo;
-import android.util.Log;
-import us.ba3.altusdemo.internetmaptests.*;
-import us.ba3.me.CoordinateBounds;
+import us.ba3.altusdemo.internetmaptests.MapQuestAerialTest;
 import us.ba3.me.Location3D;
+import android.util.Log;
 
 public class LocationAPITest extends METest {
 	

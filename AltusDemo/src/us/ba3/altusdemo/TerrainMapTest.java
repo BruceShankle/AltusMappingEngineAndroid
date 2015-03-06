@@ -42,7 +42,7 @@ public class TerrainMapTest extends METest {
 		mapView.setTerrainColorBar(colorBar, 0xff005f99);
 		
 		// add map
-        mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);
+        //mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);
         mapView.setMapZOrder(name, zOrder);
         
         // zoom to bounds

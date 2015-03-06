@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import us.ba3.altusdemo.markertests.WorldVectorLabelsTest;
+import us.ba3.altusdemo.markertests.Places;
 import us.ba3.me.CoordinateBounds;
 import us.ba3.me.Location;
 import us.ba3.me.MapView;
@@ -17,7 +17,6 @@ import us.ba3.me.util.FileDownloader;
 import us.ba3.me.vector.GeometryGroup;
 import us.ba3.me.vector.Line;
 import us.ba3.me.vector.Polygon;
-import us.ba3.me.virtualmaps.SphericalMercatorRasterTile;
 import us.ba3.me.virtualmaps.TileProvider;
 import us.ba3.me.virtualmaps.TileProviderRequest;
 import us.ba3.me.virtualmaps.VirtualMapInfo;
@@ -88,7 +87,7 @@ class DownloadFilesTask extends AsyncTask<String, Integer, GeometryGroup> {
 	}
 	
 	//Returns a polygon that covers a tile
-	Polygon createBoundingPolygon(SphericalMercatorRasterTile tile, int shapeId){
+	Polygon createBoundingPolygon(int shapeId){
 		Location min = request.bounds.min;
 		Location max = request.bounds.max;
 		double width = max.longitude - min.longitude;
@@ -109,13 +108,11 @@ class DownloadFilesTask extends AsyncTask<String, Integer, GeometryGroup> {
 	@Override
 	protected GeometryGroup doInBackground(String... params) {
 		
-		SphericalMercatorRasterTile tile = request.sphericalMercatorRasterTiles[0];
-		
-		String fileName = getTileFileName(tile.slippyX, tile.slippyY, tile.slippyZ);
+		String fileName = getTileFileName(request.x, request.y, request.level);
 		String fullFileName = this.cacheFolder.getAbsolutePath() + File.separator + fileName;
 		
 		if(!existsInCache(fileName)){
-			boolean downloaded = downloadFile(getTileURL(tile.slippyX, tile.slippyY, tile.slippyZ), fullFileName);
+			boolean downloaded = downloadFile(getTileURL(request.x, request.y, request.level), fullFileName);
 			if(!downloaded){
 				//return an empty geometry group
 				return new GeometryGroup();
@@ -126,7 +123,7 @@ class DownloadFilesTask extends AsyncTask<String, Integer, GeometryGroup> {
 		GeometryGroup geometryGroup = parseJSONFile(fullFileName);
 		
 		//Add a solid background as a polygon
-		geometryGroup.polygons = new Polygon[]{createBoundingPolygon(tile, 2)};
+		geometryGroup.polygons = new Polygon[]{createBoundingPolygon(2)};
 	
 		return geometryGroup;
 	}
@@ -202,11 +199,11 @@ class DownloadFilesTask extends AsyncTask<String, Integer, GeometryGroup> {
 public class InternetVectorMap extends METest implements TileProvider {
 
 	CoordinateBounds startingBounds;
-	WorldVectorLabelsTest labels;
+	Places labels;
 	public InternetVectorMap(String name, CoordinateBounds bounds, METestManager testManager) {
 		this.name = name;
 		this.startingBounds = bounds;
-		this.labels = new WorldVectorLabelsTest("Places", testManager.getMapPath("Markers", "Places"));
+		this.labels = new Places("Places", testManager.getMapPath("Markers", "Places"));
 	}
 
 	@Override
@@ -223,7 +220,7 @@ public class InternetVectorMap extends METest implements TileProvider {
 		mapInfo.name = name;
 		mapInfo.zOrder = 100;
 		mapInfo.isVector = true;
-		mapInfo.setTileProvider(this);
+		mapInfo.tileProvider = this;
 		mapView.addMapUsingMapInfo(mapInfo);
 		mapView.setMapZOrder(name, 100);
 		
@@ -253,11 +250,7 @@ public class InternetVectorMap extends METest implements TileProvider {
 
 	@Override
 	public void requestTile(TileProviderRequest request) {
-		if (request.sphericalMercatorRasterTiles.length == 1) {
-			new DownloadFilesTask(this.context, request, mapView).execute("");
-		} else {
-			mapView.vectorTileLoadComplete(request, new GeometryGroup());
-		}
+		new DownloadFilesTask(this.context, request, mapView).execute("");
 	}
 	
 }

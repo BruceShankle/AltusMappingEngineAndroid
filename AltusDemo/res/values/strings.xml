@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BA3 Altus Demo</string>
+    <string name="app_name">Altus 2.0 Demo</string>
     <string name="action_settings">Settings</string>
+    <string name="action_realistic_lighting">Realistic Lighting</string>
+    <string name="action_classic_lighting">Classic Lighting</string>
     <string name="menu_settings">Settings</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
@@ -12,5 +14,11 @@
     <string name="downloads_dialog_positive">Download Maps</string>
     <string name="downloads_success">Offline maps were successfully downloaded.</string>
     <string name="downloads_fail">Some maps could not be downloaded or extracted. Try again?</string>
-    <string name="mapserver_url">http://mapserver.ba3.us/Drop24Maps/</string>
+    <string name="mapserver_url">http://dev1.ba3.us/maps/altus2/</string>
+    <string name="zoom_out">Zoom Out</string>
+    <string name="zoom_in">Zoom In</string>
+    <string name="sun_image_on">Sun Image On</string>
+    <string name="sun_image_off">Sun Image Off</string>
+    <string name="zoom_enabled">Zoom Enabled</string>
+    <string name="zoom_disabled">Zoom Disabled</string>
 </resources>

@@ -19,8 +19,7 @@ public class BitmapTileWorkerTest extends METest {
 		mapInfo.name = this.name;
 		mapInfo.zOrder = 100;
 		mapInfo.maxLevel = 20;
-		mapInfo.isSphericalMercator = false;
-		mapInfo.setTileProvider(tileFactory);
+		mapInfo.tileProvider = tileFactory;
 		this.mapView.addMapUsingMapInfo(mapInfo);
 	}
 

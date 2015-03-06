@@ -9,8 +9,10 @@ public class MapQuestAerialTest extends METest {
 	
 	@Override
 	public void start() {
-		mapView.addInternetMap(this.name,
+		mapView.addStreamingRasterMap(this.name,
 				"http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg",
+				"", //North tiles
+				"", //South tiles
 				"", 		//Subdomains
 				20,			//Max Level
 				2,			//zOrder

@@ -9,7 +9,7 @@ public class VectorWorldMapTest extends METest {
 	CoordinateBounds bounds;
 	File _mapFile;
 	File _sqliteFile;
-	WorldVectorLabelsTest _labels;
+	Places _labels;
 	
 	public VectorWorldMapTest(String name, String mapPath, CoordinateBounds bounds, METestManager testManager) {
 		this.name = name;
@@ -17,7 +17,7 @@ public class VectorWorldMapTest extends METest {
 		_sqliteFile = new File(mapPath + ".sqlite");
 		this.bounds = bounds;
 		
-		_labels = new WorldVectorLabelsTest("Places", testManager.getMapPath("Markers", "Places"));
+		_labels = new Places("Places", testManager.getMapPath("Markers", "Places"));
 	}
 	
 	protected void cachePng(String resourcePath, String cachedImageName){

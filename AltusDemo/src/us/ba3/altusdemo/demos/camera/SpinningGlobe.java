@@ -8,7 +8,7 @@ public class SpinningGlobe extends DemoWithTimer {
 	
 	public SpinningGlobe(){
 		//this.interval = 0.25f;
-		this._name = "Spinning Globe";
+		this.name = "Spinning Globe";
 		_location = new Location3D();
 		_location.latitude = 0f;
 		_location.longitude = 180f;
@@ -17,7 +17,7 @@ public class SpinningGlobe extends DemoWithTimer {
 
 	@Override
 	public void timerTick(){
-		this._mapView.setLocation3D(_location, this.interval);
+		this.mapView.setLocation3D(_location, this.interval);
 		_location.longitude = _location.longitude - 20;
 		if(_location.longitude<-180){
 			_location.longitude += 360;

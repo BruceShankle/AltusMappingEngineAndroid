@@ -1,8 +1,9 @@
 package us.ba3.altusdemo;
-import us.ba3.me.*;
-import android.util.Log;
+import us.ba3.me.CoordinateBounds;
+import us.ba3.me.ImageDataType;
+import us.ba3.me.MapLoadingStrategy;
 
-public class MBTilesMapTest extends RasterMapTest {
+public class MBTilesMapTest extends PackagedMapTest {
 
 	public MBTilesMapTest(String name, String mapPath, CoordinateBounds bounds) {
 		super(name, mapPath, bounds);

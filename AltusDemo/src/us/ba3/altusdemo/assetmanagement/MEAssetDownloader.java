@@ -144,7 +144,7 @@ public class MEAssetDownloader {
 				//Download the file
 				publishProgress("Downloading " + asset.targetFileName);
 				//+ "(" + String.format("%.2f", asset.fileSize / 1048576)+" MB)");
-				
+				Log.w("Downloading", asset.sourceURL);
 				HttpClient httpClient = new DefaultHttpClient();
 				HttpGet httpGet = new HttpGet(asset.sourceURL);
 				httpClient.execute(httpGet).getEntity().writeTo(new FileOutputStream(outFile));

@@ -156,8 +156,10 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 	public void start() {
 				
 		// add map
-		mapView.addInternetMap(this.name,
+		mapView.addStreamingRasterMap(this.name,
 				"http://{s}.tiles.mapbox.com/v3/dxjacob.map-s5qr595q/{z}/{x}/{y}.png",
+				"", //North tiles
+				"", //South tiles
 				"a,b,c,d", 	//Subdomains
 				20,			//Max Level
 				2,			//zOrder
@@ -228,7 +230,10 @@ public class DynamicMarkerTest extends METest implements ValueAnimator.AnimatorU
 	        	}
 	        	cities.add(city);
 	        }
-        } catch (IOException e) { }
+	        reader.close();
+        }
+        catch (IOException e) {
+        }
 	}
 	
 	@Override

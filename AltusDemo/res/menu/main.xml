@@ -1,9 +1,51 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_realistic_lighting"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:title="@string/action_realistic_lighting"/>
+    
+    <item
+        android:id="@+id/action_classic_lighting"
+        android:orderInCategory="101"
+        android:showAsAction="never"
+        android:title="@string/action_classic_lighting"/>
+    
+    <item
+        android:id="@+id/zoom_out"
+        android:orderInCategory="102"
+        android:showAsAction="never"
+        android:title="@string/zoom_out"/>
+    
+    <item
+        android:id="@+id/zoom_in"
+        android:orderInCategory="103"
+        android:showAsAction="never"
+        android:title="@string/zoom_in"/>
+    
+    <item
+        android:id="@+id/sun_image_on"
+        android:orderInCategory="104"
+        android:showAsAction="never"
+        android:title="@string/sun_image_on"/>
+    
+    <item
+        android:id="@+id/sun_image_off"
+        android:orderInCategory="105"
+        android:showAsAction="never"
+        android:title="@string/sun_image_off"/>
+    
+    <item
+        android:id="@+id/zoom_enabled"
+        android:orderInCategory="106"
+        android:showAsAction="never"
+        android:title="@string/zoom_enabled"/>
+    
+    <item
+        android:id="@+id/zoom_disabled"
+        android:orderInCategory="107"
+        android:showAsAction="never"
+        android:title="@string/zoom_disabled"/>
 
 </menu>

@@ -1,7 +1,6 @@
 package us.ba3.altusdemo;
 
-import us.ba3.me.ConvertPointCallback;
-import us.ba3.me.Location;
+import us.ba3.me.*;
 import android.content.Context;
 import android.graphics.PointF;
 import android.util.Log;
@@ -13,21 +12,28 @@ public class MyMapView extends us.ba3.me.MapView {
 		super(context);
 	}
 
+	//This is how you capture touch events....
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 	
-		//This is how you capture touch events....
+		//This is how to you get the distance from a screen point to the horizon
+		Log.w("getDistanceToHorizonFromPoint","("+event.getX()+"," + event.getY()+")");
+		super.getDistanceToHorizonFromPoint(new PointF(event.getX(), event.getY()), new DoubleReceiver(){
+			@Override
+			public void receiveDouble(double normalizedDistance) {
+				Log.w("getDistanceToHorizonFromPoint returned",""+normalizedDistance);
+			}});
 		
 		//This is how you look up the geographic location of a touch event
 		/*
-		super.getLocationForPoint(new PointF(event.getX(), event.getY()), new ConvertPointCallback(){
+		super.getLocationForPoint(new PointF(event.getX(), event.getY()), new LocationReceiver(){
 			@Override
-			public void convertComplete(Location loc) {
+			public void receiveLocation(Location loc) {
 				Log.w("onTouch", "lon:" + loc.longitude + " lat:" + loc.latitude);
 			}});
 		*/
 		
-		//Always pass to pass class....
+		//Always pass to base class....
 		return super.onTouchEvent(event);
 	}
 

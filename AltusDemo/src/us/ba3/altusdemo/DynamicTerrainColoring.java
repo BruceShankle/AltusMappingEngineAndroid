@@ -1,9 +1,9 @@
 package us.ba3.altusdemo;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-
+import us.ba3.me.ColorBar;
+import us.ba3.me.CoordinateBounds;
+import us.ba3.me.MapInfo;
+import us.ba3.me.MapType;
 import android.graphics.Color;
-import android.util.Log;
-import us.ba3.me.*;
 
 public class DynamicTerrainColoring extends METest {
 
@@ -39,7 +39,7 @@ public class DynamicTerrainColoring extends METest {
 		mapView.setTerrainColorBar(colorBar, 0xff005f99);
 
 		// add map
-		mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);
+		//mapView.addMap(name, mapPath + ".sqlite", mapPath + ".map", true);
 		mapView.setMapZOrder(name, 2);
 	}
 

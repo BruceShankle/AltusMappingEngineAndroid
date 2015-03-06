@@ -16,13 +16,11 @@ public class TileProviderTest extends METest implements TileProvider {
 	
 	@Override
 	public void start() {
-		
 		VirtualMapInfo mapInfo = new VirtualMapInfo();
 		mapInfo.name = name;
 		mapInfo.zOrder = 100;
-		mapInfo.setTileProvider(this);
+		mapInfo.tileProvider = this;
 		mapView.addMapUsingMapInfo(mapInfo);
-		
 	}
 
 	@Override

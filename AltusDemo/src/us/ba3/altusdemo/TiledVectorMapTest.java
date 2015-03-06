@@ -1,16 +1,15 @@
 	package us.ba3.altusdemo;
 	
 	import us.ba3.me.Location;
-	import us.ba3.me.styles.LineStyle;
-	import us.ba3.me.styles.PolygonStyle;
-	import us.ba3.me.virtualmaps.TileProvider;
-	import us.ba3.me.virtualmaps.TileProviderRequest;
-	import us.ba3.me.virtualmaps.TileProviderResponse;
-	import us.ba3.me.virtualmaps.VirtualMapInfo;
-	import us.ba3.me.vector.*;
-	import android.graphics.Color;
-	import android.os.Looper;
-	import android.util.Log;
+import us.ba3.me.styles.LineStyle;
+import us.ba3.me.styles.PolygonStyle;
+import us.ba3.me.vector.GeometryGroup;
+import us.ba3.me.vector.Line;
+import us.ba3.me.vector.Polygon;
+import us.ba3.me.virtualmaps.TileProvider;
+import us.ba3.me.virtualmaps.TileProviderRequest;
+import us.ba3.me.virtualmaps.VirtualMapInfo;
+import android.graphics.Color;
 	
 	public class TiledVectorMapTest extends METest implements TileProvider {
 	
@@ -24,7 +23,7 @@
 			mapInfo.name = name;
 			mapInfo.zOrder = 100;
 			mapInfo.isVector = true;
-			mapInfo.setTileProvider(this);
+			mapInfo.tileProvider = this;
 			mapView.addMapUsingMapInfo(mapInfo);
 			mapView.setMapZOrder(name, 100);
 	

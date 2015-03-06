@@ -1,5 +1,6 @@
 package us.ba3.altusdemo.demos;
 import android.util.Log;
+import android.view.ViewGroup;
 import us.ba3.me.*;
 import android.content.Context;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -10,8 +11,8 @@ public class DemoWithTimer extends Demo implements Runnable {
 	public float interval = 1.0f;
 	
 	@Override
-	public void start(MapView mapView, Context context) {
-		super.start(mapView, context);
+	public void start(MapView mapView, Context context, ViewGroup viewGroup) {
+		super.start(mapView, context, viewGroup);
 		this.startTimer();
 	}
 	
@@ -36,6 +37,6 @@ public class DemoWithTimer extends Demo implements Runnable {
 	}
 	
 	public void timerTick(){
-		Log.w(this._name, "timerTick(): Please override.");
+		Log.w(this.name, "timerTick(): Please override.");
 	}
 }

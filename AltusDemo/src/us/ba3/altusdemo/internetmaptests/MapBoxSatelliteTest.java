@@ -9,8 +9,10 @@ public class MapBoxSatelliteTest extends METest {
 	
 	@Override
 	public void start() {
-		mapView.addInternetMap(this.name,
+		mapView.addStreamingRasterMap(this.name,
 				"http://{s}.tiles.mapbox.com/v3/dxjacob.ho6k3ag9/{z}/{x}/{y}.jpg",
+				"", //North tiles
+				"", //South tiles
 				"a,b,c,d", 	//Subdomains
 				20,			//Max Level
 				2,			//zOrder

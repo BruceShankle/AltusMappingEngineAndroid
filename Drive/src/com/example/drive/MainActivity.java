@@ -33,8 +33,10 @@ public class MainActivity extends Activity implements Runnable {
 
 		//Get the map view and add a street map.
 		MapView mapView = (MapView)this.findViewById(R.id.mapView1);
-		mapView.addInternetMap("MapQuest",
+		mapView.addStreamingRasterMap("MapQuest",
 				"http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg",
+				"", //North tiles
+				"", //South tiles
 				"", 		//Subdomains
 				19,			//Max Level
 				2,			//zOrder
@@ -46,7 +48,7 @@ public class MainActivity extends Activity implements Runnable {
 		//		//Add vector layer
 		VectorMapInfo vectorMapInfo = new VectorMapInfo();
 		vectorMapInfo.name = "route";
-		vectorMapInfo.zOrder = 3;
+		vectorMapInfo.zOrder = 2;
 		vectorMapInfo.alpha = 0.75f;
 		mapView.addMapUsingMapInfo(vectorMapInfo);
 
@@ -147,7 +149,7 @@ public class MainActivity extends Activity implements Runnable {
 		beacon.repeatDelay = 0;
 		beacon.fade = true;
 		beacon.fadeDelay = 1;
-		beacon.zOrder = 5;
+		beacon.zOrder = 4;
 		beacon.lineStyle.strokeColor = Color.WHITE;
 		beacon.lineStyle.outlineColor = Color.rgb(0, 255, 0);
 		beacon.lineStyle.outlineWidth = 4;
@@ -176,7 +178,7 @@ public class MainActivity extends Activity implements Runnable {
 		//Add dynamic marker map layer
 		DynamicMarkerMapInfo mapInfo = new DynamicMarkerMapInfo();
 		mapInfo.name = "Markers";
-		mapInfo.zOrder = 5;
+		mapInfo.zOrder = 3;
 		mapView.addMapUsingMapInfo(mapInfo);
 
 		//Add a markers

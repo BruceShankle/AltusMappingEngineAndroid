@@ -1,22 +1,28 @@
 package us.ba3.altusdemo.markertests;
 import java.io.File;
-import android.util.Log;
-import us.ba3.altusdemo.METest;
-import us.ba3.me.Location;
-import us.ba3.me.MapType;
-import us.ba3.me.markers.*;
-import us.ba3.me.util.*;
-import us.ba3.me.styles.*;
-import android.graphics.*;
 
-public class WorldVectorLabelsTest extends METest implements MarkerMapDelegate {
+import us.ba3.altusdemo.METest;
+import us.ba3.me.MapType;
+import us.ba3.me.markers.MarkerImageLoadingStrategy;
+import us.ba3.me.markers.MarkerInfo;
+import us.ba3.me.markers.MarkerMapDelegate;
+import us.ba3.me.markers.MarkerMapInfo;
+import us.ba3.me.styles.LabelStyle;
+import us.ba3.me.util.FontUtil;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PointF;
+import android.graphics.Typeface;
+import android.util.Log;
+
+public class Places extends METest implements MarkerMapDelegate {
 
 	File _sqliteFile;
 	LabelStyle _countryStyle;
 	LabelStyle _stateStyle;
 	LabelStyle _cityStyle;
 	
-	public WorldVectorLabelsTest(String name, String mapPath){
+	public Places(String name, String mapPath){
 		this.name=name;
 		_sqliteFile = new File(mapPath + ".sqlite");
 		_countryStyle = this.createCountryStyle();
@@ -71,24 +77,12 @@ public class WorldVectorLabelsTest extends METest implements MarkerMapDelegate {
 			PointF screenPoint,
 			PointF markerPoint){
 		
-		Log.w("WorldVectorLabelsTest","Marker was tapped on. uid:" + markerUid + 
+		Log.w("Places","Marker was tapped on. uid:" + markerUid + 
 				" metaData:" + markerMetaData + 
 				" weight:" + markerWeight +
 				" location:" + geographicLocation.x + "," + geographicLocation.y +
 				" screenPoint:" + screenPoint.x + "," + screenPoint.y +
 				" markerPoint:" + markerPoint.x + "," + markerPoint.y);
-		
-		/*
-		 //Tests for various locaiton getters.
-		Log.w("WorldVectorLabelsTest", "Current center coordinate is:"+
-				this.mapView.getCenterCoordinate().longitude + ", " +
-				this.mapView.getCenterCoordinate().latitude + " Altitude:" +
-				this.mapView.getAltitude());
-		
-		Log.w("WorldVectorLabelsTest", this.mapView.getLocation3D().longitude + " " +
-		this.mapView.getLocation3D().latitude + " " +
-				this.mapView.getLocation3D().altitude);
-				*/
 	}
 	
 	public LabelStyle createCountryStyle() {
