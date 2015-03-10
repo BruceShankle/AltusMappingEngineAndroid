@@ -33,6 +33,16 @@ public class MyMapView extends us.ba3.me.MapView {
 			}});
 		*/
 		
+		//This is how you convert a location to a screen point.
+		//Determine where on the screen Mt. Ranier is:
+		Location ranierLocation = new Location(46.852189, -121.757604);
+		super.convertCoordinate(ranierLocation, new PointReceiver(){
+			@Override
+			public void receivePoint(PointF screenPoint){
+				Log.w("Mt. Ranier is at screen point (", + screenPoint.x + ", " + screenPoint.y + ")");
+			}});
+		
+		
 		//Always pass to base class....
 		return super.onTouchEvent(event);
 	}

@@ -347,8 +347,15 @@ public class FlightPlayback extends DemoWithTimer implements MarkerMapDelegate {
 		this.updateCamera();
 		this.updateOwnShipBeacon();
 		this.updateOwnShipMarker();
-		PointF screenPoint = this.mapView.convertCoordinate(this.currentSample.getLocation());
-		//Log.w("FlightPlayback", "Plane is at:" + screenPoint.x+"," + screenPoint.y);
+		
+		final Location sampleLocation = new Location(this.currentSample.getLocation().latitude,
+				this.currentSample.getLocation().longitude);
+		this.mapView.convertCoordinate(sampleLocation, new PointReceiver(){
+			@Override
+			public void receivePoint(PointF screenPoint){
+				Log.w("FlightPlayback: Plane marker is at screen point (", + screenPoint.x + ", " + screenPoint.y + ")");
+			}});
+		
 		this.currentSample = nextSample();
 	}
 
