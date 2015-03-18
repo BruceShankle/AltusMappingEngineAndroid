@@ -3,8 +3,10 @@ import java.io.File;
 
 import us.ba3.altusdemo.METest;
 import us.ba3.me.MapType;
+import us.ba3.me.PointReceiver;
 import us.ba3.me.markers.MarkerImageLoadingStrategy;
 import us.ba3.me.markers.MarkerInfo;
+import us.ba3.me.markers.MarkerInfoReceiver;
 import us.ba3.me.markers.MarkerMapDelegate;
 import us.ba3.me.markers.MarkerMapInfo;
 import us.ba3.me.styles.LabelStyle;
@@ -21,7 +23,7 @@ public class Places extends METest implements MarkerMapDelegate {
 	LabelStyle _countryStyle;
 	LabelStyle _stateStyle;
 	LabelStyle _cityStyle;
-	
+
 	public Places(String name, String mapPath){
 		this.name=name;
 		_sqliteFile = new File(mapPath + ".sqlite");
@@ -29,12 +31,12 @@ public class Places extends METest implements MarkerMapDelegate {
 		_stateStyle = this.createStateStyle();
 		_cityStyle = this.createCityStyle();	
 	}
-	
+
 	@Override
 	public boolean requiresDownloadableAssets() {
 		return true;
 	}
-	
+
 	@Override
 	public void start() {
 		//Add marker map
@@ -57,17 +59,17 @@ public class Places extends METest implements MarkerMapDelegate {
 
 	@Override
 	public void updateMarkerInfo(MarkerInfo markerInfo, String mapName) {
-		
+
 		//Create a label bitmap
 		Bitmap labelBitmap = FontUtil.createLabel(markerInfo.metaData, _countryStyle);
-		
+
 		//Set the marker info
 		markerInfo.setImage(labelBitmap);
 		markerInfo.anchorPoint = new PointF(labelBitmap.getWidth()/2,
 				labelBitmap.getHeight()/2);
-		
+
 	}
-	
+
 	@Override
 	public void tapOnMarker(	String mapName,
 			int markerUid,
@@ -76,15 +78,28 @@ public class Places extends METest implements MarkerMapDelegate {
 			PointF geographicLocation,
 			PointF screenPoint,
 			PointF markerPoint){
-		
+
 		Log.w("Places","Marker was tapped on. uid:" + markerUid + 
 				" metaData:" + markerMetaData + 
 				" weight:" + markerWeight +
 				" location:" + geographicLocation.x + "," + geographicLocation.y +
 				" screenPoint:" + screenPoint.x + "," + screenPoint.y +
 				" markerPoint:" + markerPoint.x + "," + markerPoint.y);
+
+		//Get visible markers
+		Log.w("getVisibleMarkers","Being called");
+		mapView.getVisibleMarkers(mapName, new MarkerInfoReceiver(){
+			public void receiveMarkerInfo(MarkerInfo markerInfoArray[]){
+				if(markerInfoArray!=null){
+					Log.w("Visible Marker Count", ""+markerInfoArray.length);
+					for(int i=0; i<markerInfoArray.length; i++){
+						Log.w("Marker: " + markerInfoArray[i].uid, markerInfoArray[i].metaData);
+					}
+				}
+			}});
+
 	}
-	
+
 	public LabelStyle createCountryStyle() {
 		LabelStyle s = new LabelStyle();
 		s.fontName = "Arial";
@@ -95,7 +110,7 @@ public class Places extends METest implements MarkerMapDelegate {
 		s.fillColor = Color.BLACK;
 		return s;
 	}
-	
+
 	public LabelStyle createStateStyle() {
 		LabelStyle s = new LabelStyle();
 		s.fontName = "Arial";
@@ -106,7 +121,7 @@ public class Places extends METest implements MarkerMapDelegate {
 		s.fillColor = Color.rgb(130, 130, 130);
 		return s;
 	}
-	
+
 	public LabelStyle createCityStyle() {
 		LabelStyle s = new LabelStyle();
 		s.fontName = "Arial";

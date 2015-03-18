@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 		//Night map package
 		String targetFolder = "PackagedMaps";
 		String fileName = "Night.sqlite";
-		long fileSize = 5308416;
+		long fileSize = 92694528;
 		_assetManager.addDownloadableAsset(
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
 
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
 				new MEDownloadableAsset(mapServerURL+targetFolder+"/"+fileName,targetFolder,fileName,false, fileSize));
 
 		//Places.sqlite
-		fileSize = 19246080;
+		fileSize = 19244032;
 		targetFolder = "MarkerMaps";
 		fileName = "Places.sqlite";
 		_assetManager.addDownloadableAsset(

@@ -53,6 +53,7 @@ public class METestManager {
 		testList.add(new PackagedMapTest("Night Map", getMapPath("PackagedMaps","Night"), Locations.USBounds));
 		
 		testList.add(new MapBoxSatelliteTest());
+		testList.add(new GoogleSatelliteTest());
 		testList.add(new MapQuestAerialTest());
 		testList.add(new MapBoxLandcoverTest());
 		testList.add(new MapQuestTest());
