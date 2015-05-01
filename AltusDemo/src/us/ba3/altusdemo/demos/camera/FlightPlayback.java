@@ -267,6 +267,7 @@ public class FlightPlayback extends DemoWithTimer implements MarkerMapDelegate {
 		mapView.addTerrainMeshMap("Terrain 3D", "TerrainHeight", 32);
 		mapView.setMapAlpha("Terrain 3D", 0.3f);
 		mapView.setMapZOrder("Terrain 3D", 109);
+		mapView.setMapPriority("Terrain 3D",  0); //Make this map always load first
 		mapView.setTileDistanceScale(2.0);
 		mapView.setTileLevelBias(0);
 		mapView.setDisplayListMode(0);
