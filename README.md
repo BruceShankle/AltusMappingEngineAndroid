@@ -9,6 +9,9 @@ capacity or feature walls that block development, and the Altus Mapping Engine c
 Get the BA3 Altus Android SDK and Sample Applications
 ======================================================
 
+<b> July 4, 2015</b><br>
+Altus releases are now available at <a href="http://builds.ba3.us/">builds.ba3.us</a>.
+
 Complete source code is supplied for all of the Altus Mapping Engine tutorials, 
 and the tutorials themselves can be found in the 
 <a href="http://www.ba3.us/?page=pages/knowledge-base">Knowledge Base</a>.
